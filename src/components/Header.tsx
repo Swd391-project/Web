@@ -187,7 +187,7 @@ const Header = () => {
                       <i className="far fa-envelope" />
                       <span className="ml-2">Inbox</span>
                     </a> */}
-                                        <a href="/sign-up">
+                                        <a href="/sign-in">
                                             <i className="fas fa-sign-in-alt" />
                                             <span className="ml-2">Logout</span>
                                         </a>

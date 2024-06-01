@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = () => {
     return (
-        <div className="footer">
+        <div className="footer w-screen">
             <div className="copyright">
                 <p className="mb-0">
                     Copyright © Designed &amp; Developed by{" "}

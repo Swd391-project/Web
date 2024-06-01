@@ -9,7 +9,7 @@ const Navbar = () => {
                     {" "}
                     <img
                         className="logo-tabib"
-                        src="/assets/images/download.png"
+                        src="/assets/images/badmintonBackground-removebg-preview.png"
                         alt=""
                     />
                 </Link>

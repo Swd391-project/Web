@@ -53,7 +53,7 @@ export function InputForm() {
                                                 />
                                                 <img
                                                     className="img-fluid mt-5"
-                                                    src="assets/images/logo.png"
+                                                    src="assets/images/PackageTitle.png"
                                                     alt="login page"
                                                 />
                                             </a>

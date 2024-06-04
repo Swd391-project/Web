@@ -547,7 +547,7 @@ export default function RootLayout({
   }, []);
   return (
     <html lang="en">
-      <body>
+      <body className={isLoading ? "loading" : ""}>
         {isLoading ? (
           <div className="preloader">
             <div className="lds-ellipsis">

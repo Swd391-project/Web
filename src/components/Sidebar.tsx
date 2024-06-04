@@ -24,11 +24,11 @@ const Sidebar = () => {
                         <ul className="list-unstyled mm-collapse">
 
                             <li>
-                                <Link href="/add-staff">Thêm nhân viên</Link>
+                                <Link href="/add-user">Thêm nhân viên</Link>
                             </li>
 
                             <li>
-                                <Link href="/staff">Tất cả nhân viên</Link>
+                                <Link href="/user">Tất cả nhân viên</Link>
                             </li>
                         </ul>
                     </li>

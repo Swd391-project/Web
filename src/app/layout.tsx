@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import "./globals.css";
 import ToastProvider from "@/provider/toast-provider";
+import { AuthProvider } from "@/context/authContext";
 
 export default function RootLayout({
   children,
@@ -547,7 +548,7 @@ export default function RootLayout({
   }, []);
   return (
     <html lang="en">
-      <body>
+      <body className={isLoading ? "loading" : ""}>
         {isLoading ? (
           <div className="preloader">
             <div className="lds-ellipsis">
@@ -559,7 +560,9 @@ export default function RootLayout({
         ) : (
           <div>
             <ToastProvider />
-            {children}
+            <AuthProvider>
+              {children}
+            </AuthProvider>
           </div>
         )}
       </body>

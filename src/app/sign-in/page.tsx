@@ -1,21 +1,7 @@
 "use client"
 import React from "react"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
 import { z } from "zod"
 
-import { Button } from "@/components/ui/button"
-import {
-    Form,
-    FormControl,
-    FormDescription,
-    FormField,
-    FormItem,
-    FormLabel,
-    FormMessage,
-} from "@/components/ui/form"
-import { Input } from "@/components/ui/input"
-import { toast } from "react-toastify";
 import LoginForm from "@/components/Form/LoginForm"
 
 const FormSchema = z.object({
@@ -53,7 +39,7 @@ export function InputForm() {
                                                 />
                                                 <img
                                                     className="img-fluid mt-5"
-                                                    src="assets/images/logo.png"
+                                                    src="assets/images/PackageTitle.png"
                                                     alt="login page"
                                                 />
                                             </a>

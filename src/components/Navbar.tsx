@@ -17,7 +17,7 @@ const Navbar = () => {
                     <img
                         className="brand-title"
                         style={{ width: "100px", height: "60px" }}
-                        src="/assets/images/logo.png"
+                        src="/assets/images/PackageTitle.png"
                         alt=""
                     />
                 </Link>

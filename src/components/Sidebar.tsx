@@ -3,9 +3,16 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import styles from '../app/style.module.css';
+import { useAuth } from '@/context/authContext';
 
 const Sidebar = () => {
+    const { user } = useAuth();
+    // console.log(user)
     const pathname = usePathname();
+    const isAdmin = user?.role === "Admin";
+    const isManager = user?.role === "Manager";
+    const isStaff = user?.role === "Staff";
+    const isCustomer = user?.role === "Customer";
     return (
         <aside className={`left-panel nicescroll-box ${styles.leftPanel}`}>
             <nav className="navigation">
@@ -16,22 +23,25 @@ const Sidebar = () => {
                             <span className="nav-label">Dashboard</span>
                         </Link>
                     </li>
-                    <li className="has-submenu">
-                        <Link href="#" className="has-arrow mm-collapsed">
-                            <i className="fas fa-user-md" />
-                            <span className="nav-label">Nhân viên</span>
-                        </Link>
-                        <ul className="list-unstyled mm-collapse">
+                    {isAdmin && (
+                        <li className="has-submenu">
+                            <Link href="#" className="has-arrow mm-collapsed">
+                                <i className="fas fa-user-md" />
+                                <span className="nav-label">Nhân viên</span>
+                            </Link>
+                            <ul className="list-unstyled mm-collapse">
 
-                            <li>
-                                <Link href="/add-staff">Thêm nhân viên</Link>
-                            </li>
+                                <li>
+                                    <Link href="/add-user">Thêm nhân viên</Link>
+                                </li>
 
-                            <li>
-                                <Link href="/staff">Tất cả nhân viên</Link>
-                            </li>
-                        </ul>
-                    </li>
+                                <li>
+                                    <Link href="/user">Tất cả nhân viên</Link>
+                                </li>
+                            </ul>
+                        </li>
+                    )}
+
                     <li className="has-submenu">
                         <Link href="#" className="has-arrow mm-collapsed">
                             <i className="fas fa-crow" />

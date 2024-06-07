@@ -77,6 +77,8 @@
 }
 
 .login-page {
+  background-image: url('../../public/assets/images/pngtree-badminton-sport-hd-background-picture-image_1024474.jpg');
   background-size: cover;
   background-position: center;
+  height: 650px;
 }

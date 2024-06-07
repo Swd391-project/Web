@@ -29,7 +29,7 @@ $(function () {
         // jQuery('body').attr('data-primary', 'primary_color_1');
         jQuery('body').attr('data-sibebartext', 'primary_color_1');
         //jQuery('body').attr('data-topbar', 'primary_color_1');
-        $('.brand-title').attr('src', 'assets/images/Logo.png');
+        $('.brand-title').attr('src', 'assets/images/PackageTitle.png');
     });
 
 

@@ -1,7 +1,9 @@
+'use client'
 import Navbar from '@/components/Navbar'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const page = () => {
+
     return (
         <section className='home'>
             <div className='home-content'>

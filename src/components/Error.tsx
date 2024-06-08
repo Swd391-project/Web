@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Error = () => {
-    return (
-        <div>
-            Unauthenticate Component
-        </div>
-    )
-}
+  return <div>Unauthenticate Component</div>;
+};
 
-export default Error
+export default Error;

@@ -82,7 +82,7 @@ $("#example2 tbody").on("click", ".vue", function () {
       data[11] +
       "</td></tr> <tr><td>Patient History<td><td>" +
       data[12] +
-      "</td></tr></tbody></table>"
+      "</td></tr></tbody></table>",
   );
   // calling the bootstrap modal
   $("#myModal").modal("show");

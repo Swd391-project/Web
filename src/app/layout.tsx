@@ -432,7 +432,7 @@ export default function RootLayout({
       linkTags.forEach((linkTag) => {
         const { rel, href } = linkTag;
         const linkElement = document.head.querySelector(
-          `link[rel="${rel}"][href="${href}"]`
+          `link[rel="${rel}"][href="${href}"]`,
         );
         if (linkElement) document.head.removeChild(linkElement);
       });
@@ -560,9 +560,7 @@ export default function RootLayout({
         ) : (
           <div>
             <ToastProvider />
-            <AuthProvider>
-              {children}
-            </AuthProvider>
+            <AuthProvider>{children}</AuthProvider>
           </div>
         )}
       </body>

@@ -1,92 +1,77 @@
 $(function () {
+  // ========================================================================= //
+  //    Add remove class active has menu
+  // ========================================================================= //
 
-    // ========================================================================= //
-    //    Add remove class active has menu
-    // ========================================================================= //
+  jQuery(".has-submenu").click(function () {
+    $(".has-submenu").removeClass("active");
+    $(this).toggleClass("active");
+  });
 
-    jQuery(".has-submenu").click(function () {
-        $(".has-submenu").removeClass("active");
-        $(this).toggleClass("active");
-    });
+  // ========================================================================= //
+  //    Toggle Aside Menu
+  // ========================================================================= //
 
-    // ========================================================================= //
-    //    Toggle Aside Menu
-    // ========================================================================= //
+  jQuery(".hamburger").click(function () {
+    jQuery("body").toggleClass("sidebar-toggled");
+    jQuery("#main-wrapper").toggleClass("menu-toggle");
+    jQuery(".left-panel").toggleClass("collapsed");
+  });
 
-    jQuery(".hamburger").click(function () {
-        jQuery("body").toggleClass("sidebar-toggled");
-        jQuery("#main-wrapper").toggleClass("menu-toggle");
-        jQuery(".left-panel").toggleClass("collapsed");
+  // ========================================================================= //
+  //    Set attibute isnide body (Light)
+  // ========================================================================= //
 
-    });
+  jQuery("body").attr({
+    "data-typography": "rubik",
+    "data-sidebar-position": "fixed",
+    "data-header-position": "fixed",
+  });
 
-    // ========================================================================= //
-    //    Set attibute isnide body (Light)
-    // ========================================================================= //
+  // ========================================================================= //
+  //    Set attibute isnide body (Dark)
+  // ========================================================================= //
 
-    jQuery('body').attr({
-        'data-typography': "rubik",
-        'data-sidebar-position': "fixed",
-        'data-header-position': "fixed",
-    });
+  if (jQuery("body").hasClass("dark")) {
+    jQuery("body").attr("data-theme-version", "dark");
+    jQuery("body").attr("data-nav-headerbg", "primary_color_3");
+    jQuery("body").attr("data-headerbg", "primary_color_3");
+    jQuery("body").attr("data-sibebarbg", "primary_color_3");
+    // jQuery('body').attr('data-primary', 'primary_color_3');
+    jQuery("body").attr("data-sibebartext", "primary_color_3");
+    //jQuery('body').attr('data-topbar', 'primary_color_3');
+    jQuery("body").attr("data-sidebar", "primary_color_3");
+    jQuery(".brand-title").attr("src", "assets/images/logo-dark.png");
+  }
 
+  // ========================================================================= //
+  //   Top bar change
+  // ========================================================================= //
 
-    // ========================================================================= //
-    //    Set attibute isnide body (Dark)
-    // ========================================================================= //
+  if ($(".auth").hasClass("dark")) {
+    $(".logo img").attr("src", "assets/images/logo-dark.png");
+  }
 
-    if (jQuery('body').hasClass('dark')) {
-        jQuery('body').attr('data-theme-version', 'dark');
-        jQuery('body').attr('data-nav-headerbg', 'primary_color_3');
-        jQuery('body').attr('data-headerbg', 'primary_color_3');
-        jQuery('body').attr('data-sibebarbg', 'primary_color_3');
-        // jQuery('body').attr('data-primary', 'primary_color_3');
-        jQuery('body').attr('data-sibebartext', 'primary_color_3');
-        //jQuery('body').attr('data-topbar', 'primary_color_3');
-        jQuery('body').attr('data-sidebar', 'primary_color_3');
-        jQuery('.brand-title').attr('src', 'assets/images/logo-dark.png');
+  // ========================================================================= //
+  //    resize
+  // ========================================================================= //
+
+  function resize() {
+    if (window.matchMedia("(max-width: 767px)").matches) {
+      $("body").attr("data-sidebar-style", "overlay");
+    } else if (window.matchMedia("(max-width: 1199px)").matches) {
+      $("body").attr("data-sidebar-style", "mini");
+    } else {
+      // $('body').attr('data-sidebar-style', 'full');
+      // $("#main-wrapper").removeClass('mini');
     }
+  }
 
+  resize();
 
-
-    // ========================================================================= //
-    //   Top bar change 
-    // ========================================================================= //
-
-
-    if ($('.auth').hasClass('dark')) {
-        $('.logo img').attr('src', 'assets/images/logo-dark.png');
-
-    }
-
-
-    // ========================================================================= //
-    //    resize 
-    // ========================================================================= //
-
-    function resize() {
-        if (window.matchMedia("(max-width: 767px)").matches) {
-            $('body').attr('data-sidebar-style', 'overlay');
-
-        } else if (window.matchMedia("(max-width: 1199px)").matches) {
-
-            $('body').attr('data-sidebar-style', 'mini');
-
-        } else {
-            // $('body').attr('data-sidebar-style', 'full');
-            // $("#main-wrapper").removeClass('mini');
-        }
-
-
-    }
-
-
+  jQuery(window).resize(function () {
     resize();
-
-    jQuery(window).resize(function () {
-        resize();
-    })
-
+  });
 });
 
 // ========================================================================= //
@@ -94,12 +79,12 @@ $(function () {
 // ========================================================================= //
 
 function showPreview(event) {
-    if (event.target.files.length > 0) {
-        var src = URL.createObjectURL(event.target.files[0]);
-        var preview = document.getElementById("file-ip-1-preview");
-        preview.src = src;
-        preview.style.display = "block";
-    }
+  if (event.target.files.length > 0) {
+    var src = URL.createObjectURL(event.target.files[0]);
+    var preview = document.getElementById("file-ip-1-preview");
+    preview.src = src;
+    preview.style.display = "block";
+  }
 }
 
 // ========================================================================= //
@@ -107,25 +92,32 @@ function showPreview(event) {
 // ========================================================================= //
 
 $(".widget-3 input[type='file']").on("change", function () {
-    $(".widget-3").addClass("custom-text");
+  $(".widget-3").addClass("custom-text");
 });
 
 // ========================================================================= //
 //   Date Range
 // ========================================================================= //
 
-$('input[name="daterange"]').daterangepicker({
-    opens: 'right'
-}, function (start, end, label) {
-    console.log("A new date selection was made: " + start.format('YYYY-MM-DD') + ' to ' + end.format('YYYY-MM-DD'));
-});
-
+$('input[name="daterange"]').daterangepicker(
+  {
+    opens: "right",
+  },
+  function (start, end, label) {
+    console.log(
+      "A new date selection was made: " +
+        start.format("YYYY-MM-DD") +
+        " to " +
+        end.format("YYYY-MM-DD"),
+    );
+  },
+);
 
 // ========================================================================= //
 //   Button Add Drugs
 // ========================================================================= //
-$('#butonAddDrug').click(function () {
-    var structure = `   
+$("#butonAddDrug").click(function () {
+  var structure = `   
         <form id="testmed">
             <div class="row">
                 <div class="col-md-2">
@@ -152,16 +144,16 @@ $('#butonAddDrug').click(function () {
             </div>
         </form>
         <hr/>`;
-    $(".drugslist").append(structure);
-    // $('select').selectpicker();
+  $(".drugslist").append(structure);
+  // $('select').selectpicker();
 });
 
 // ========================================================================= //
 //  Button Add Test
 // ========================================================================= //
 
-$('#butonAddTest').click(function () {
-    var structure = `<form>
+$("#butonAddTest").click(function () {
+  var structure = `<form>
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
@@ -191,67 +183,64 @@ $('#butonAddTest').click(function () {
     </div>
     <hr/>
 </form>`;
-    $(".addTest").append(structure);
-    // $('select').selectpicker();
-
+  $(".addTest").append(structure);
+  // $('select').selectpicker();
 });
-
 
 // ========================================================================= //
 //  Change dates patient
 // ========================================================================= //
 
 $(function () {
-    $('input[name="dates"]').daterangepicker({
-        singleDatePicker: true,
-        showDropdowns: true,
-        minYear: 1901,
-        maxYear: parseInt(moment().format('YYYY'), 10)
-    }, function (start, end, label) {
-        var years = moment().diff(start, 'years');
-    });
+  $('input[name="dates"]').daterangepicker(
+    {
+      singleDatePicker: true,
+      showDropdowns: true,
+      minYear: 1901,
+      maxYear: parseInt(moment().format("YYYY"), 10),
+    },
+    function (start, end, label) {
+      var years = moment().diff(start, "years");
+    },
+  );
 });
-
-
 
 // ========================================================================= //
 //   refrech select picker inside modal
 // ========================================================================= //
-$('.selectRefresh').on('shown', function () {
-    $('.selectpicker').selectpicker('refresh');
+$(".selectRefresh").on("shown", function () {
+  $(".selectpicker").selectpicker("refresh");
 });
-
 
 // ========================================================================= //
 //   Responsive
 // ========================================================================= //
 
-
 function resize() {
-    if (window.matchMedia("(max-width: 1199px)").matches) {
-        $(".has-submenu").removeClass('active');
-    }
+  if (window.matchMedia("(max-width: 1199px)").matches) {
+    $(".has-submenu").removeClass("active");
+  }
 }
 
 resize();
 
 jQuery(window).resize(function () {
-    resize();
-})
-
+  resize();
+});
 
 jQuery(function ($) {
-    var path = window.location.href;
-    $('ul li a').each(function () {
-        if (window.matchMedia("(max-width: 1199px) and (max-width: 1199px)").matches) {
-            if (this.href === path) {
-                if ($(this).parent().hasClass("has-submenu")) {
-                    $(this).parent().addClass("active-submenu");
-                } else {
-                    $(this).parent().parent().parent().addClass('active-submenu');
-                }
-            }
+  var path = window.location.href;
+  $("ul li a").each(function () {
+    if (
+      window.matchMedia("(max-width: 1199px) and (max-width: 1199px)").matches
+    ) {
+      if (this.href === path) {
+        if ($(this).parent().hasClass("has-submenu")) {
+          $(this).parent().addClass("active-submenu");
+        } else {
+          $(this).parent().parent().parent().addClass("active-submenu");
         }
-
-    });
+      }
+    }
+  });
 });

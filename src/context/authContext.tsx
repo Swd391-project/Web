@@ -47,7 +47,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
                 }
             );
             if (response.ok) {
-                const { token, fullName, image } = await response.json();
+
+                const { token, "full-name": fullName, image } = await response.json();
                 setCookie(null, 'sessionToken', token, {
                     maxAge: 30 * 24 * 60 * 60,
                     path: '/',
@@ -65,6 +66,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
                 setUser(user);
                 window.localStorage.setItem("user", JSON.stringify(user));
+                // window.localStorage.setItem("fullName", fullName);
                 toast.success("Đăng nhập thành công");
                 router.push('/');
             } else {

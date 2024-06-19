@@ -28,7 +28,7 @@ const page = () => {
 
                         <div className="col-4 float-end">
                           <Link
-                            href="/add-staff"
+                            href="/add-user"
                             className="btn btn-primary float-end"
                           >
                             Thêm Nhân Viên

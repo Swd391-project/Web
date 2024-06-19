@@ -43,13 +43,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({ username, password }),
-        },
+        }
       );
       if (response.ok) {
-        const { token, fullName, image } = await response.json();
-        setCookie(null, "sessionToken", token, {
+
+        const { token, "full-name": fullName, image } = await response.json();
+        setCookie(null, 'sessionToken', token, {
           maxAge: 30 * 24 * 60 * 60,
-          path: "/",
+          path: '/',
         });
 
         const decodedUser: User = jwtDecode(token);
@@ -64,8 +65,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         setUser(user);
         window.localStorage.setItem("user", JSON.stringify(user));
+        // window.localStorage.setItem("fullName", fullName);
         toast.success("Đăng nhập thành công");
-        router.push("/");
+        router.push('/');
       } else {
         const errorMessage = await response.text();
         console.log("Login failed. Error message:", errorMessage);

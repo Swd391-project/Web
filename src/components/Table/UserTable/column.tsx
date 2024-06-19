@@ -15,22 +15,18 @@ import { User } from "@/data/type";
 
 export const columns: ColumnDef<User>[] = [
   {
-    accessorKey: "id",
-    header: "Id",
-  },
-  {
-    accessorKey: "fullName",
+    accessorKey: "full-name",
     header: "Full Name",
   },
   {
-    accessorKey: "email",
+    accessorKey: "username",
     header: ({ column }) => {
       return (
         <Button
           variant="ghost"
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
-          Email
+          Username
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );
@@ -45,20 +41,6 @@ export const columns: ColumnDef<User>[] = [
           onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
         >
           Role
-          <ArrowUpDown className="ml-2 h-4 w-4" />
-        </Button>
-      );
-    },
-  },
-  {
-    accessorKey: "phoneNumber",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Phone Number
           <ArrowUpDown className="ml-2 h-4 w-4" />
         </Button>
       );

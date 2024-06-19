@@ -5,12 +5,20 @@ import Navbar from "@/components/Navbar";
 import Sidebar from "@/components/Sidebar";
 import Footer from "@/components/Footer";
 import { QueryProvider } from "@/provider/query-provider";
+import { useAuth } from "@/context/authContext";
+import { useRouter } from "next/navigation";
 
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const router = useRouter();
+  const { user } = useAuth()
+
+  // if (!user) {
+  //   router.push('/login-in')
+  // }
   return (
     <div>
       <QueryProvider>

@@ -54,10 +54,10 @@ const Sidebar = () => {
             </Link>
             <ul className="list-unstyled mm-collapse">
               <li>
-                <Link href="/add-bird">Thêm Sân</Link>
+                <Link href="/add-court">Thêm Sân</Link>
               </li>
               <li>
-                <Link href="/bird">Tất Cả Sân</Link>
+                <Link href="/court">Tất Cả Sân</Link>
               </li>
             </ul>
           </li>

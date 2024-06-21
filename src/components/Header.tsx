@@ -38,6 +38,7 @@ const Header = () => {
             <ul className="list-unstyled"></ul>
           </div>
         </div>
+
         <div className="header-right">
           <div className="fullscreen notification_dropdown widget-5 mt-3">
             <div className="d-flex">

@@ -2,9 +2,8 @@
 
 import React from "react";
 import Link from "next/link";
-import UserClient from "@/components/Table/CourtGroupTable/UserClient";
-
 import BreadScrum from "@/components/BreadScrum";
+import CourtGroupClient from "@/components/Table/CourtGroupTable/CourtGroupClient";
 
 const page = () => {
   return (
@@ -37,7 +36,7 @@ const page = () => {
                     </div>
                   </div>
                   <div className="container">
-                    <UserClient />
+                    <CourtGroupClient />
                   </div>
                 </div>
               </div>

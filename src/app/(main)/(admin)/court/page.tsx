@@ -1,7 +1,8 @@
 "use client"
 import BreadScrum from '@/components/BreadScrum'
 import Calendar from '@/components/Calendar'
-import UserClient from '@/components/Table/UserTable/UserClient'
+import AddCourtForm from '@/components/Form/AddCourtForm'
+import CourtClient from '@/components/Table/CourtTable/CourtClient'
 import Link from 'next/link'
 import React from 'react'
 
@@ -13,16 +14,15 @@ const page = () => {
                     <div className="warper container-fluid">
                         <div className="all-patients main_container">
                             <BreadScrum
-                                title="Danh Sách Nhân Viên Mới"
-                                subRouteTitle="user"
-                                subTitle1="Danh Sách Nhân Viên Mới"
+                                title="Danh Sách Sân Mới"
+                                subRouteTitle="court"
+                                subTitle1="Danh Sách Sân Mới"
                             />
                             <div className="row">
                                 <div className="col-lg-12">
                                     <div className="card">
-                                        {/*  */}
                                         <div className="container">
-                                            <Calendar />
+                                            <CourtClient />
                                         </div>
                                     </div>
                                 </div>

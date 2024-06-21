@@ -7,6 +7,7 @@ import Footer from "@/components/Footer";
 import { QueryProvider } from "@/provider/query-provider";
 import { useAuth } from "@/context/authContext";
 import { useRouter } from "next/navigation";
+import ModalProvider from "@/provider/modal-provider";
 
 export default function RootLayout({
   children,
@@ -22,6 +23,7 @@ export default function RootLayout({
   return (
     <div>
       <QueryProvider>
+        <ModalProvider />
         <Sidebar />
         <Navbar />
         <Header />

@@ -57,7 +57,19 @@ const Sidebar = () => {
           <li className="has-submenu">
             <Link href="/court-group">
               <i className="fas fa-home" />
-              <span className="nav-label">Court group</span>
+              <span className="nav-label">Cụm sân</span>
+            </Link>
+          </li>
+          <li className="has-submenu">
+            <Link href="/court">
+              <i className="fas fa-home" />
+              <span className="nav-label">Sân</span>
+            </Link>
+          </li>
+          <li className="has-submenu">
+            <Link href="/booking">
+              <i className="fas fa-home" />
+              <span className="nav-label">Đặt lịch</span>
             </Link>
           </li>
         </ul>

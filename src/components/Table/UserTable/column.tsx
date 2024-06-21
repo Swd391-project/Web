@@ -11,9 +11,20 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-import { User } from "@/data/type";
+import { User, UserColumn } from "../../../../type";
+import { CellAction } from "./cell-action";
 
-export const columns: ColumnDef<User>[] = [
+
+export type StaffColumn = {
+  id: string,
+  username: string;
+  email: string;
+  "full-name": string;
+  role: string,
+  // userImage: string
+};
+
+export const columns: ColumnDef<UserColumn>[] = [
   {
     accessorKey: "full-name",
     header: "Full Name",
@@ -48,30 +59,6 @@ export const columns: ColumnDef<User>[] = [
   },
   {
     id: "actions",
-    cell: ({ row }) => {
-      const user = row.original;
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <MoreHorizontal className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            {/* <DropdownMenuItem
-                            onClick={() => navigator.clipboard.writeText(user.id)}
-                        >
-                            Copy payment ID
-                        </DropdownMenuItem> */}
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Update</DropdownMenuItem>
-            <DropdownMenuItem>Delete</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      );
-    },
+    cell: ({ row }) => <CellAction data={row.original} />,
   },
 ];

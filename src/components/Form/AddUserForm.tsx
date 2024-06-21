@@ -54,9 +54,9 @@ const formSchema = z.object({
   password: z.string().refine((value) => /^[A-Z].*$/.test(value), {
     message: "Password phải bắt đầu bằng một chữ cái viết hoa",
   }),
-  fullName: z.string().min(2),
+  "full-name": z.string().min(2),
   role: z.string(),
-  PhoneNumber: z.string(),
+  "phone-number": z.string(),
   createdBy: z.number(),
   modifiedBy: z.number(),
 });
@@ -69,14 +69,14 @@ const AddUserForm = () => {
       image_url: "",
       email: "",
       password: "",
-      fullName: "",
+      "full-name": "",
       role: "",
-      PhoneNumber: "",
+      "phone-number": "",
       createdBy: 1,
       modifiedBy: 1,
     },
   });
-  const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/user";
+  const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/auth/register";
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     //TO DO xử lý form (api)
@@ -89,7 +89,9 @@ const AddUserForm = () => {
           Authorization: `Bearer ${token}`,
         },
         method: "POST",
+        body: JSON.stringify(values),
       });
+      console.log(values)
       if (response.ok) {
         toast.success("Thêm nhân viên thành công");
         form.reset();
@@ -139,7 +141,7 @@ const AddUserForm = () => {
                   <div className="form-group">
                     <FormField
                       control={form.control}
-                      name="PhoneNumber"
+                      name="phone-number"
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
@@ -179,7 +181,7 @@ const AddUserForm = () => {
                   <div className="form-group">
                     <FormField
                       control={form.control}
-                      name="fullName"
+                      name="full-name"
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>

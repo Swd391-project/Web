@@ -49,7 +49,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
         const { token, "full-name": fullName, image } = await response.json();
         setCookie(null, 'sessionToken', token, {
-          maxAge: 30 * 24 * 60 * 60,
+          maxAge: 1 * 24 * 60 * 60,
           path: '/',
         });
 

@@ -1,4 +1,5 @@
 import BreadScrum from "@/components/BreadScrum";
+import AddCourtGroupForm from "@/components/Form/AddCourtGroupForm";
 import React from "react";
 
 const page = () => {
@@ -10,9 +11,9 @@ const page = () => {
             <BreadScrum
               title="Thêm Nhân Cụm Sân Mới"
               subRouteTitle="add-court-group"
-              subTitle1="Thêm Nhân Cụm Sân Mới"
+              subTitle1="Thêm Cụm Sân Mới"
             />
-            {/* components */}
+            <AddCourtGroupForm />
           </div>
         </div>
       </div>

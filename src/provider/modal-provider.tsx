@@ -1,6 +1,7 @@
 "use client";
 
 import DeleteUserForm from "@/components/Form/DeleteUserForm";
+import EditCourtForm from "@/components/Form/EditCourtForm";
 import EditCourtGroupForm from "@/components/Form/EditCourtGroupForm";
 import EditUserForm from "@/components/Form/EditUserForm";
 import { useEffect, useState } from "react";
@@ -17,6 +18,7 @@ const ModalProvider = () => {
             <EditUserForm />
             <DeleteUserForm />
             <EditCourtGroupForm />
+            <EditCourtForm />
         </>
     );
 };

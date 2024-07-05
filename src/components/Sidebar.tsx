@@ -41,7 +41,7 @@ const Sidebar = () => {
           {isAdmin && (
             <li className="has-submenu">
               <Link href="/add-user">
-                <i className="fas fa-user-md" />
+                <i className="fas fa-user-plus" />
                 <span className="nav-label">Thêm nhân viên</span>
               </Link>
             </li>
@@ -49,14 +49,14 @@ const Sidebar = () => {
           {isAdmin && (
             <li className="has-submenu">
               <Link href="/user">
-                <i className="fas fa-user-md" />
+                <i className="fas fa-address-book" />
                 <span className="nav-label">Tất cả nhân viên</span>
               </Link>
             </li>
           )}
           <li className="has-submenu">
             <Link href="/court-group">
-              <i className="fas fa-home" />
+              <i className="fas fa-building" />
               <span className="nav-label">Cụm sân</span>
             </Link>
           </li>
@@ -67,9 +67,21 @@ const Sidebar = () => {
             </Link>
           </li>
           <li className="has-submenu">
+            <Link href="/booking-list">
+              <i className="fas fa-list" />
+              <span className="nav-label">Danh sách đặt sân</span>
+            </Link>
+          </li>
+          <li className="has-submenu">
             <Link href="/booking">
-              <i className="fas fa-home" />
-              <span className="nav-label">Đặt lịch</span>
+              <i className="fas fa-calendar" />
+              <span className="nav-label">Xem lịch trình</span>
+            </Link>
+          </li>
+          <li className="has-submenu">
+            <Link href="/add-booking">
+              <i className="fas fa-play" />
+              <span className="nav-label">Đặt sân</span>
             </Link>
           </li>
         </ul>

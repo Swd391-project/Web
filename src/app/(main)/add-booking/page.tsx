@@ -1,8 +1,9 @@
-"use client"
 import BreadScrum from "@/components/BreadScrum";
-import Schedule from "@/components/Schedule/Schedule";
+import AddBookingCourtForm from "@/components/Form/AddBookingCourtForm";
+import AddBookingCourt from "@/components/Form/AddBookingCourtForm";
+import React from "react";
 
-const BookingPage = () => {
+const AddBookingForm = () => {
     return (
         <div id="main-wrapper" className="show">
             <div className="content-body">
@@ -15,7 +16,11 @@ const BookingPage = () => {
                         />
 
                         <div className="row">
-                            <Schedule />
+                            <div className="col-md-12">
+                                <div className="card">
+                                    <AddBookingCourtForm />
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -24,4 +29,4 @@ const BookingPage = () => {
     );
 };
 
-export default BookingPage;
+export default AddBookingForm;

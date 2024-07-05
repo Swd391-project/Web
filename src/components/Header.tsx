@@ -1,14 +1,44 @@
-"use client"
+"use client";
 import { useAuth } from "@/context/authContext";
+import useCourtGroup from "@/hook/useCourtGroup";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+type CourtGroup = {
+  id: number;
+  name: string;
+  // other properties if any
+};
 
 const Header = () => {
   const { user } = useAuth();
+  const { courtGroups } = useCourtGroup();
   const userName = user?.fullName;
   const imageUrl = user?.userImage;
+  const [selectedCourtGroupId, setSelectedCourtGroupId] = useState<number | null>(null);
+
+  useEffect(() => {
+    const storedCourtGroupId = sessionStorage.getItem("selectedCourtGroupId");
+    if (storedCourtGroupId) {
+      setSelectedCourtGroupId(parseInt(storedCourtGroupId, 10));
+    }
+  }, []);
+
+  useEffect(() => {
+    if (selectedCourtGroupId !== null) {
+      sessionStorage.setItem("selectedCourtGroupId", selectedCourtGroupId.toString());
+    }
+    // Dispatch a custom event to notify about the change
+    const event = new CustomEvent("courtGroupIdChange", { detail: selectedCourtGroupId });
+    window.dispatchEvent(event);
+  }, [selectedCourtGroupId]);
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedId = parseInt(e.target.value, 10);
+    setSelectedCourtGroupId(selectedId);
+  };
+
   return (
     <div className="header">
       <header className="top-head container-fluid">
@@ -20,22 +50,32 @@ const Header = () => {
           </div>
           <div className="left-header content-header__menu">
             <ul className="list-unstyled">
-              <li className="nav-link btn">
+              {/* <li className="nav-link btn">
                 <Link href="/process">
                   <i className="far fa-calendar-check" />{" "}
                   <span> Xem quá trình</span>
                 </Link>
               </li>
-
               <li className="nav-link btn">
                 <Link href="/add-process">
                   <i className="far fa-file-alt" /> <span> Tạo Quá Trình</span>
                 </Link>
+              </li> */}
+              <li className="nav-link btn">
+                <select
+                  className="form-select"
+                  value={selectedCourtGroupId !== null ? selectedCourtGroupId : ""}
+                  onChange={handleSelectChange}
+                >
+                  <option value="">Chọn cụm sân</option>
+                  {courtGroups.map((group) => (
+                    <option key={group.id} value={group.id}>
+                      {group.name}
+                    </option>
+                  ))}
+                </select>
               </li>
             </ul>
-          </div>
-          <div className="left-header content-header__menu">
-            <ul className="list-unstyled"></ul>
           </div>
         </div>
 
@@ -50,15 +90,7 @@ const Header = () => {
             <div className="account-wrapper">
               <div className="account-control">
                 <a className="login header-profile" href="#" title="Sign in">
-                  <div className="header-info">
-                  </div>
-                  {/* {
-                                        imageUrl ? imageUrl : <img
-                                            src="..\assets\images\avatar.jpg"
-                                            alt="people"
-                                        />
-                                    } */}
-
+                  <div className="header-info"></div>
                   {imageUrl ? (
                     <Image
                       src={imageUrl}

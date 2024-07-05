@@ -72,8 +72,6 @@ const AddUserForm = () => {
       "full-name": "",
       role: "",
       "phone-number": "",
-      createdBy: 1,
-      modifiedBy: 1,
     },
   });
   const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/auth/register";

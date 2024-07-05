@@ -1,15 +1,17 @@
 import { create } from "zustand";
-import { CourtColumns, CourtGroupColumns, UserColumn } from "../../type";
+import { BookingListColumns, CourtColumns, CourtGroupColumns, UserColumn } from "../../type";
 
 export type ModalStyle =
     | "EditUserForm"
     | "DeleteUserForm"
-    | "EditCourtGroupForm";
+    | "EditCourtGroupForm"
+    | "EditCourtForm";
 
 interface ModalData {
     user?: UserColumn;
     courtGroup?: CourtGroupColumns;
     court?: CourtColumns;
+    booking?: BookingListColumns;
 }
 
 interface ModalStore {

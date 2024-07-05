@@ -25,7 +25,8 @@ export const columns: ColumnDef<CourtColumns>[] = [
             );
         },
         cell: ({ cell }) => {
-            return cell.getValue() === 0 ? "không khả dụng" : "Khả dụng";
+            return cell.getValue() === "Available" ? "Đang hoạt động" : "Đóng cửa";
+            console.log(cell.getValue())
         },
     },
     {

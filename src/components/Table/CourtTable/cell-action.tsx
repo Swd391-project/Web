@@ -46,18 +46,18 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem
-                        onClick={() => onOpen("EditUserForm", { court: data })}
+                        onClick={() => onOpen("EditCourtForm", { court: data })}
                     >
                         <Edit className="mr-2 h-4 w-4" /> Chỉnh xửa
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => router.push(`user/${data.id}`)}>
                         <Edit className="mr-2 h-4 w-4" /> Chi tiết
                     </DropdownMenuItem>
-                    <DropdownMenuItem
+                    {/* <DropdownMenuItem
                         onClick={() => onOpen("DeleteUserForm", { court: data })}
                     >
                         <Edit className="mr-2 h-4 w-4" /> Xóa
-                    </DropdownMenuItem>
+                    </DropdownMenuItem> */}
                 </DropdownMenuContent>
             </DropdownMenu>
         </>

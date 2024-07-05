@@ -55,7 +55,7 @@ const CourtGroupClient = () => {
           throw new Error("Network response was not ok");
         }
         const data = await response.json();
-        console.log(data)
+        //console.log(data)
         setData(data);
         setIsPageFull(checkPageFull(data.length));
         setIsNextPageEmpty(await checkNextPageEmpty(pageNumber));
@@ -64,7 +64,7 @@ const CourtGroupClient = () => {
       }
     };
     fetchData();
-  }, [pageNumber, pageSize]);
+  }, [pageNumber, pageSize, data]);
 
 
   const handleNextPage = () => {

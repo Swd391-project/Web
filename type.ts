@@ -13,15 +13,30 @@ export interface CourtGroup {
   id: number;
   name: string;
   address: string;
-  // company: string;
 }
 
 export type Court = {
   id: number;
   status: string;
   "courtGroupId": string;
-  // company: string;
 };
+
+export type BookingList = {
+  id: number;
+  date: string;
+  "court-id": string;
+  "from-time": string;
+  "to-time": string;
+  "customer-id": number;
+  "created-date": string;
+};
+
+export interface Customer {
+  id: number;
+  "full-name": string;
+  "phone-number": string;
+}
+
 
 /******** COLUMN TABLE ********/
 export type UserColumn = {
@@ -46,5 +61,15 @@ export type CourtColumns = {
   id: number;
   status: string;
   "court-group-id": number;
-  // company: string;
+  "court-group": CourtGroupColumns;
+};
+
+export type BookingListColumns = {
+  id: number;
+  date: string;
+  "court-id": string;
+  "from-time": string;
+  "to-time": string;
+  customer: Customer;
+  "created-date": string;
 };

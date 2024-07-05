@@ -11,7 +11,6 @@ import {
     FormItem,
     FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 
 import { toast } from "react-toastify";
 import { parseCookies } from "nookies";
@@ -29,15 +28,15 @@ import {
 
 const formSchema = z.object({
     status: z.string(),
-    courtGroupId: z.string(),
+    "court-group-id": z.string(),
 });
 const AddCourtForm = () => {
     // 1. Define your form.
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            status: "available",
-            courtGroupId: "",
+            status: "Available",
+            "court-group-id": "",
         },
     });
     const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/court";
@@ -109,7 +108,7 @@ const AddCourtForm = () => {
                                     <div className="form-group">
                                         <FormField
                                             control={form.control}
-                                            name="courtGroupId"
+                                            name="court-group-id"
                                             render={({ field }) => (
                                                 <FormItem>
                                                     <FormControl>
@@ -117,7 +116,7 @@ const AddCourtForm = () => {
                                                             disabled={isLoading}
                                                             onValueChange={(value) => {
                                                                 field.onChange(value);
-                                                                form.setValue("courtGroupId", value);
+                                                                form.setValue("court-group-id", value);
                                                             }}
                                                             value={field.value}
                                                             defaultValue={field.value}
@@ -133,7 +132,7 @@ const AddCourtForm = () => {
                                                                     {courtGroups.map((CourtGroup) => (
                                                                         <SelectItem
                                                                             key={CourtGroup.id}
-                                                                            value={CourtGroup.name}
+                                                                            value={CourtGroup.id.toString()}
                                                                         >
                                                                             {CourtGroup.name}
                                                                         </SelectItem>

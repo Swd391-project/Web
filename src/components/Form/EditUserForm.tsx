@@ -25,22 +25,12 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectLabel,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/ui/select";
 
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useModal } from "@/hook/useModal";
 import { toast } from "react-toastify";
 import { ImageUploadOne } from "../image-cloudinary-upload/image-upload";
-import { useQuery } from "@tanstack/react-query";
 
 const formSchema = z.object({
     username: z.string().min(2, "Username must be at least 2 characters"),

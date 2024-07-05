@@ -13,12 +13,12 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { CourtGroupColumns, UserColumn } from "../../../../type";
+import { BookingListColumns } from "../../../../type";
 import { useModal } from "@/hook/useModal";
 import { useAuth } from "@/context/authContext";
 
 interface CellActionProps {
-    data: CourtGroupColumns;
+    data: BookingListColumns;
 }
 
 export const CellAction: React.FC<CellActionProps> = ({ data }) => {
@@ -47,18 +47,18 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                     <DropdownMenuItem
-                        onClick={() => onOpen("EditCourtGroupForm", { courtGroup: data })}
+                        onClick={() => onOpen("EditCourtGroupForm", { booking: data })}
                     >
                         <Edit className="mr-2 h-4 w-4" /> Chỉnh xửa
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => router.push(`court-group/${data.id}`)}>
                         <Edit className="mr-2 h-4 w-4" /> Chi tiết
                     </DropdownMenuItem>
-                    {/* <DropdownMenuItem
-                        onClick={() => onOpen("DeleteUserForm", { courtGroup: data })}
+                    <DropdownMenuItem
+                        onClick={() => onOpen("DeleteUserForm", { booking: data })}
                     >
                         <Edit className="mr-2 h-4 w-4" /> Xóa
-                    </DropdownMenuItem> */}
+                    </DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </>

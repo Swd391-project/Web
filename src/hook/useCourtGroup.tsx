@@ -11,7 +11,7 @@ const useCourtGroup = () => {
         const fetchCourtGroups = async () => {
             try {
                 const res = await axios.get(
-                    "https://swdbbmsapi20240605224753.azurewebsites.net/api/court-group"
+                    "https://swdbbmsapi.azurewebsites.net/api/court-group"
                 );
                 setCourtGroups(res.data);
                 setLoading(false);

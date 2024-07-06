@@ -16,7 +16,7 @@ const UserIdPage = ({ params }: UserIdPageProps) => {
     const [user, setUser] = useState<User | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const API_URL = `https://swdbbmsapi20240605224753.azurewebsites.net/api/user/${params.userId}`;
+    const API_URL = `https://swdbbmsapi.azurewebsites.net/api/user/${params.userId}`;
 
     useEffect(() => {
         const fetchUser = async () => {

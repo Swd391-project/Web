@@ -66,7 +66,7 @@ const DeleteUserForm = () => {
     }, [data, form]);
 
     const updateStaff = async (values: z.infer<typeof formSchema>) => {
-        return axios.put(`https://swdbbmsapi20240605224753.azurewebsites.net/api/user/${data.user?.id}`, values);
+        return axios.put(`https://swdbbmsapi.azurewebsites.net/api/user/${data.user?.id}`, values);
     };
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
@@ -74,7 +74,7 @@ const DeleteUserForm = () => {
         try {
             values.status = "Inactive";
             const response = await axios.put(
-                `https://swdbbmsapi20240605224753.azurewebsites.net/api/user/${data.user?.id}`,
+                `https://swdbbmsapi.azurewebsites.net/api/user/${data.user?.id}`,
                 values
             );
             console.log(data.user?.id)

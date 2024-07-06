@@ -16,7 +16,7 @@ const CourtGroupIdPage = ({ params }: CourtGroupIdProps) => {
     const [courtGroup, setCourtGroup] = useState<CourtGroup | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const API_URL = `https://swdbbmsapi20240605224753.azurewebsites.net/api/court-group/${params.courtgroupId}`;
+    const API_URL = `https://swdbbmsapi.azurewebsites.net/api/court-group/${params.courtgroupId}`;
 
     useEffect(() => {
         const fetchCourtGroup = async () => {

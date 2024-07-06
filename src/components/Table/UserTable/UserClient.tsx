@@ -8,7 +8,7 @@ import { parseCookies } from "nookies";
 import EditUserForm from "@/components/Form/EditUserForm";
 
 
-const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/user";
+const API_URL = "https://swdbbmsapi.azurewebsites.net/api/user";
 
 const UserClient = () => {
   const [data, setData] = useState<UserColumn[]>([]);

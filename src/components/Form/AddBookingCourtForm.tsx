@@ -63,8 +63,7 @@ const formSchema = z.object({
 
 const AddBookingCourtForm = () => {
     const { user } = useAuth();
-    const { courtGroups } = useCourtGroup();
-
+    const [startTime, setStartTime] = useState<string>("");
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -100,7 +99,7 @@ const AddBookingCourtForm = () => {
         console.log(courtGroupId);
     }, [courtGroupId]);
 
-    const API_URL = `https://swdbbmsapi20240605224753.azurewebsites.net/api/booking/${courtGroupId}`;
+    const API_URL = `https://swdbbmsapi.azurewebsites.net/api/booking/${courtGroupId}`;
     const cookies = parseCookies();
     const token = cookies.sessionToken;
 
@@ -119,7 +118,7 @@ const AddBookingCourtForm = () => {
                 toast.success("Đặt sân thành công");
                 form.reset();
             } else {
-                toast.error("Bạn không đủ phân quyền để đặt sân");
+                toast.error("Lịch đã full");
                 form.reset();
             }
         } catch (error) {
@@ -127,7 +126,7 @@ const AddBookingCourtForm = () => {
             console.log(error);
         }
     };
-
+    const filteredEndTimeSlots = slotsType.filter(slot => slot.id > startTime);
     return (
         <div className="card">
             <div className="card-header">
@@ -151,6 +150,7 @@ const AddBookingCourtForm = () => {
                                                             {...field}
                                                             className="form-control"
                                                             type="date"
+                                                            min={new Date().toISOString().split('T')[0]}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
@@ -166,7 +166,10 @@ const AddBookingCourtForm = () => {
                                             render={({ field }) => (
                                                 <FormItem>
                                                     <Select
-                                                        onValueChange={field.onChange}
+                                                        onValueChange={value => {
+                                                            field.onChange(value);
+                                                            setStartTime(value);
+                                                        }}
                                                         value={field.value}
                                                         defaultValue={field.value}
                                                     >
@@ -211,7 +214,7 @@ const AddBookingCourtForm = () => {
                                                         <SelectContent>
                                                             <SelectGroup>
                                                                 <SelectLabel>Chọn thời gian kết thúc</SelectLabel>
-                                                                {slotsType.map((item) => (
+                                                                {filteredEndTimeSlots.map((item) => (
                                                                     <SelectItem value={item.id} key={item.time}>
                                                                         {item.time}
                                                                     </SelectItem>
@@ -219,6 +222,7 @@ const AddBookingCourtForm = () => {
                                                             </SelectGroup>
                                                         </SelectContent>
                                                     </Select>
+
                                                     <FormMessage />
                                                 </FormItem>
                                             )}

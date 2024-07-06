@@ -8,7 +8,7 @@ import { BookingList, BookingListColumns, Customer, User } from "../../../../typ
 import useCustomers from "@/hook/useCustomer";
 import { format, parse } from "date-fns";
 
-const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/booking";
+const API_URL = "https://swdbbmsapi.azurewebsites.net/api/booking";
 const BookingListClient = () => {
     const [data, setData] = useState<BookingListColumns[]>([]);
     const [pageNumber, setPageNumber] = useState(1);

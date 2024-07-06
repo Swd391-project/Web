@@ -6,7 +6,7 @@ import { DataTable } from "./data-table";
 import { parseCookies } from "nookies";
 import { CourtGroupColumns } from "../../../../type";
 
-const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/court-group";
+const API_URL = "https://swdbbmsapi.azurewebsites.net/api/court-group";
 const CourtGroupClient = () => {
   const [data, setData] = useState<CourtGroupColumns[]>([]);
   const [pageNumber, setPageNumber] = useState(1);

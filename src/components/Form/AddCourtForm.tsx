@@ -39,7 +39,7 @@ const AddCourtForm = () => {
             "court-group-id": "",
         },
     });
-    const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/court";
+    const API_URL = "https://swdbbmsapi.azurewebsites.net/api/court";
     const router = useRouter();
     const { courtGroups } = useCourtGroup();
 

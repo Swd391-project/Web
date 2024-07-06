@@ -13,7 +13,7 @@ const useUsers = () => {
         const fetchUsers = async () => {
             try {
                 const res = await axios.get(
-                    "https://swdbbmsapi20240605224753.azurewebsites.net/api/user",
+                    "https://swdbbmsapi.azurewebsites.net/api/user",
                     {
                         headers: {
                             "Content-Type": "application/json",

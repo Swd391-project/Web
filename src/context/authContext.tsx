@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   const login = async (username: string, password: string) => {
     try {
       const response = await fetch(
-        "https://swdbbmsapi20240605224753.azurewebsites.net/api/auth/login",
+        "https://swdbbmsapi.azurewebsites.net/api/auth/login",
         {
           method: "POST",
           headers: {

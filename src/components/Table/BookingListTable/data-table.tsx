@@ -72,15 +72,15 @@ export function DataTable<TData, TValue>({
     return (
         <div>
             <div className="flex items-center py-4">
-                <Input
-                    type="date"
-                    placeholder="Filter date booking..."
-                    value={(table.getColumn("date")?.getFilterValue() as string) ?? ""}
+                {/* <Input
+                    type="input"
+                    placeholder="Filter customer booking..."
+                    value={(table.getColumn("customer-id")?.getFilterValue() as string) ?? ""}
                     onChange={(event) =>
-                        table.getColumn("date")?.setFilterValue(event.target.value)
+                        table.getColumn("customer-id")?.setFilterValue(event.target.value)
                     }
                     className="max-w-xs"
-                />
+                /> */}
                 <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                         <Button variant="outline" className="ml-auto">

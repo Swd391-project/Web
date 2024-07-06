@@ -59,7 +59,7 @@ const EditCourtGroupForm = () => {
     }, [data, form]);
 
     const updateCourtGroup = async (values: z.infer<typeof formSchema>) => {
-        return axios.put(`https://swdbbmsapi20240605224753.azurewebsites.net/api/court-group/${data.courtGroup?.id}`, values);
+        return axios.put(`https://swdbbmsapi.azurewebsites.net/api/court-group/${data.courtGroup?.id}`, values);
     };
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {

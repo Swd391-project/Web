@@ -74,7 +74,7 @@ const AddUserForm = () => {
       "phone-number": "",
     },
   });
-  const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/auth/register";
+  const API_URL = "https://swdbbmsapi.azurewebsites.net/api/auth/register";
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     //TO DO xử lý form (api)

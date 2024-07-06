@@ -56,7 +56,7 @@ const Schedule: React.FC = () => {
 
     const fetchBookings = (courtGroupId: string, date?: string) => {
         const dateQuery = date ? `?date=${date}` : '';
-        fetch(`https://swdbbmsapi20240605224753.azurewebsites.net/api/booking/court-group/${courtGroupId}${dateQuery}`)
+        fetch(`https://swdbbmsapi.azurewebsites.net/api/booking/court-group/${courtGroupId}${dateQuery}`)
             .then(response => response.json())
             .then(data => {
                 if (Array.isArray(data)) {
@@ -78,7 +78,7 @@ const Schedule: React.FC = () => {
     };
 
     const fetchCourts = (courtGroupId: string) => {
-        fetch(`https://swdbbmsapi20240605224753.azurewebsites.net/api/court/court-group/${courtGroupId}`)
+        fetch(`https://swdbbmsapi.azurewebsites.net/api/court/court-group/${courtGroupId}`)
             .then(response => response.json())
             .then(data => {
                 if (Array.isArray(data)) {

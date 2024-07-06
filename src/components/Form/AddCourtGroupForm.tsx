@@ -37,7 +37,7 @@ const AddCourtGroupForm = () => {
             // company: "",
         },
     });
-    const API_URL = "https://swdbbmsapi20240605224753.azurewebsites.net/api/court-group";
+    const API_URL = "https://swdbbmsapi.azurewebsites.net/api/court-group";
     const router = useRouter();
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         //TO DO xử lý form (api)

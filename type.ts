@@ -67,9 +67,27 @@ export type CourtColumns = {
 export type BookingListColumns = {
   id: number;
   date: string;
-  "court-id": string;
+  "court-id": number;
   "from-time": string;
   "to-time": string;
   customer: Customer;
   "created-date": string;
+  status: string;
 };
+
+export type ScheduleList = {
+  id: number;
+  date: string;
+  "court-id": number;
+  "from-time": string;
+  "to-time": string;
+  customer: Customer;
+  "created-date": string;
+  status: string;
+};
+
+export interface CustomerList {
+  id: number;
+  name: string;
+  "phone-number": string;
+}

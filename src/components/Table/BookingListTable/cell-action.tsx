@@ -46,16 +46,16 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                    <DropdownMenuItem
+                    {/* <DropdownMenuItem
                         onClick={() => onOpen("EditCourtGroupForm", { booking: data })}
                     >
                         <Edit className="mr-2 h-4 w-4" /> Chỉnh xửa
-                    </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => router.push(`court-group/${data.id}`)}>
+                    </DropdownMenuItem> */}
+                    <DropdownMenuItem onClick={() => router.push(`booking-list/${data.id}`)}>
                         <Edit className="mr-2 h-4 w-4" /> Chi tiết
                     </DropdownMenuItem>
                     <DropdownMenuItem
-                        onClick={() => onOpen("DeleteUserForm", { booking: data })}
+                        onClick={() => onOpen("DeleteBookingForm", { booking: data })}
                     >
                         <Edit className="mr-2 h-4 w-4" /> Xóa
                     </DropdownMenuItem>

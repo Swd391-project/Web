@@ -5,7 +5,10 @@ export type ModalStyle =
     | "EditUserForm"
     | "DeleteUserForm"
     | "EditCourtGroupForm"
-    | "EditCourtForm";
+    | "EditCourtForm"
+    | "DeleteBookingForm"
+    | "CheckInCheckOutForm"
+    | "Schedule";
 
 interface ModalData {
     user?: UserColumn;

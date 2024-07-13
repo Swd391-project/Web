@@ -1,6 +1,5 @@
 import BreadScrum from "@/components/BreadScrum";
 import AddBookingCourtForm from "@/components/Form/AddBookingCourtForm";
-import AddBookingCourt from "@/components/Form/AddBookingCourtForm";
 import React from "react";
 
 const AddBookingForm = () => {

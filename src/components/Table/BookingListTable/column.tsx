@@ -42,6 +42,10 @@ export const columns: ColumnDef<BookingListColumns>[] = [
         header: "Người đặt",
     },
     {
+        accessorKey: "status",
+        header: "Tình trạng",
+    },
+    {
         accessorKey: "created-date",
         header: "Ngày đặt",
     },

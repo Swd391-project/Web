@@ -7,6 +7,7 @@ import { useForm } from "react-hook-form";
 import {
     Form,
     FormControl,
+    FormField,
     FormItem,
     FormMessage,
 } from "@/components/ui/form";
@@ -21,8 +22,10 @@ import { useRouter } from "next/navigation";
 import axios from "axios";
 import { useModal } from "@/hook/useModal";
 import { toast } from "react-toastify";
+import { ImageUploadOne } from "../image-cloudinary-upload/image-upload";
 
 const formSchema = z.object({
+    image: z.string(),
     username: z.string().min(2, "Username must be at least 2 characters"),
     "full-name": z.string().min(2, "Full name must be at least 2 characters"),
     role: z.string().min(1, "Role must be specified"),
@@ -43,6 +46,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ onUpdate }) => {
             username: "",
             "full-name": "",
             role: "",
+            image: "",
         },
     });
 
@@ -51,6 +55,7 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ onUpdate }) => {
             form.setValue("username", data.user.username);
             form.setValue("full-name", data.user["full-name"]);
             form.setValue("role", data.user.role);
+            form.setValue("image", data.user.image);
         }
     }, [data, form]);
 
@@ -82,6 +87,29 @@ const EditUserForm: React.FC<EditUserFormProps> = ({ onUpdate }) => {
                             <Form {...form}>
                                 <form onSubmit={form.handleSubmit(updateStaff)}>
                                     <div className="row">
+                                        <div className="col-xl-4">
+                                            <FormField
+                                                control={form.control}
+                                                name="image"
+                                                render={({ field }) => (
+                                                    <FormItem>
+                                                        {field.value ? (
+                                                            <img src={field.value} alt="Profile" className="rounded-md object-contain max-h-[500px] max-w-full" />
+                                                        ) : (
+                                                            // <FormControl>
+                                                            //     <ImageUploadOne
+                                                            //         value={field.value}
+                                                            //         onChange={(imageUrl) => field.onChange(imageUrl)}
+                                                            //         onRemove={() => field.onChange(null)}
+                                                            //     />
+                                                            // </FormControl>
+                                                            <img src="/assets/images/noimage.jpg" alt="No Image" className="rounded-md object-contain max-h-[500px] max-w-full" />
+                                                        )}
+                                                        <FormMessage />
+                                                    </FormItem>
+                                                )}
+                                            />
+                                        </div>
                                         <div className="col-xl-8">
                                             <div className="form-group">
                                                 <FormControl>

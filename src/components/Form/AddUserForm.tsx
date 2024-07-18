@@ -25,6 +25,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { parseCookies } from "nookies";
 import { useRouter } from "next/navigation";
+import { ImageUploadOne } from "../image-cloudinary-upload/image-upload";
 
 type userType = {
   role: string;
@@ -43,7 +44,7 @@ const usersType: userType[] = [
 ];
 
 const formSchema = z.object({
-  // image: z.string(),
+  image: z.string(),
   email: z.string().email({ message: "Email không hợp lệ" }),
   password: z.string().refine((value) => /^[A-Z].*$/.test(value), {
     message: "Password phải bắt đầu bằng một chữ cái viết hoa",
@@ -59,7 +60,7 @@ const AddUserForm = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      // image: "",
+      image: "",
       email: "",
       password: "",
       "full-name": "",
@@ -110,7 +111,7 @@ const AddUserForm = () => {
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)}>
               <div className="row">
-                {/* <div className="col-xl-4">
+                <div className="col-xl-4">
                   <FormField
                     control={form.control}
                     name="image"
@@ -127,7 +128,7 @@ const AddUserForm = () => {
                       </FormItem>
                     )}
                   />
-                </div> */}
+                </div>
 
                 <div className="col-xl-8">
 

@@ -5,11 +5,11 @@ import React from "react";
 const Profile = ({
     id,
     name,
-    address,
+    status,
 }: {
     id: number;
     name: string;
-    address: string;
+    status: string;
 }) => {
     const { user } = useAuth();
     const isAdmin = user?.role === "Admin";
@@ -32,8 +32,8 @@ const Profile = ({
                                     <div className="grow pl-2.5">{name}</div>
                                 </div>
                                 <div className="flex justify-between mb-2.5;">
-                                    <label className="basis-[30%]">Địa chỉ:</label>
-                                    <div className="grow pl-2.5">{address}</div>
+                                    <label className="basis-[30%]">Trạng thái hoạt động:</label>
+                                    <div className="grow pl-2.5">{status}</div>
                                 </div>
                             </div>
                         </div>

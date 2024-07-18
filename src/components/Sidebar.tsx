@@ -72,12 +72,14 @@ const Sidebar = () => {
               <span className="nav-label">Danh sách đặt sân</span>
             </Link>
           </li>
-          <li className="has-submenu">
-            <Link href="/booking">
-              <i className="fas fa-calendar" />
-              <span className="nav-label">Xem lịch trình</span>
-            </Link>
-          </li>
+          {isStaff && (
+            <li className="has-submenu">
+              <Link href="/booking">
+                <i className="fas fa-calendar" />
+                <span className="nav-label">Xem lịch trình</span>
+              </Link>
+            </li>
+          )}
           <li className="has-submenu">
             <Link href="/add-booking">
               <i className="fas fa-play" />

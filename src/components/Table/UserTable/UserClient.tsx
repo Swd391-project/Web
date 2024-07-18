@@ -37,6 +37,7 @@ const UserClient = () => {
       }
 
       const nextPageData = await response.json();
+      console.log(nextPageData.length === 0)
       return nextPageData.length === 0;
     } catch (error) {
       console.error("Failed to check next page data:", error);
@@ -66,6 +67,7 @@ const UserClient = () => {
       setData(responseData);
       setIsPageFull(checkPageFull(responseData.length));
       setIsNextPageEmpty(await checkNextPageEmpty(pageNumber));
+      console.log(checkNextPageEmpty)
     } catch (error) {
       console.error("Failed to fetch data:", error);
     }
@@ -98,7 +100,7 @@ const UserClient = () => {
         data={data}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
-        isNextDisabled={isNextPageEmpty && !isPageFull}
+        isNextDisabled={isNextPageEmpty}
         isPreviousDisabled={pageNumber <= 1}
         loading={loading}
       />

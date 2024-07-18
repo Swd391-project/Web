@@ -31,12 +31,16 @@ import axios from "axios";
 import { useModal } from "@/hook/useModal";
 import { toast } from "react-toastify";
 
+interface EditCourtGroupFormProps {
+    onUpdate: () => void; // Define the type of onUpdate prop
+}
+
 const formSchema = z.object({
     name: z.string().min(2, "Username must be at least 2 characters"),
     address: z.string().min(2, "Full name must be at least 2 characters"),
 });
 
-const EditCourtGroupForm = () => {
+const EditCourtGroupForm: React.FC<EditCourtGroupFormProps> = ({ onUpdate }) => {
     const { isOpen, type, onClose, data } = useModal();
     // const { refetch } = useQuery({ queryKey: ["users"], });
     const isModalOpen = isOpen && type === "EditCourtGroupForm";
@@ -71,7 +75,7 @@ const EditCourtGroupForm = () => {
                 onClose();
                 form.reset();
                 router.refresh();
-
+                onUpdate();
             } catch (error) {
                 console.error(error);
                 toast.error("Đã có lỗi xảy ra!");

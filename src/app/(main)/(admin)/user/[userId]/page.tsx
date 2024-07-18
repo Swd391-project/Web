@@ -38,6 +38,7 @@ const UserIdPage = ({ params }: UserIdPageProps) => {
                 }
 
                 const data: User = await response.json();
+                console.log(data)
                 setUser(data);
             } catch (err: any) {
                 setError(err.message);

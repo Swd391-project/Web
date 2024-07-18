@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { CourtColumns, CourtGroup } from "../../../../type";
 import { columns } from "./column";
 import { DataTable } from "./data-table";
 import { parseCookies } from "nookies";
 import useCourtGroup from "@/hook/useCourtGroup";
+import EditCourtForm from "@/components/Form/EditCourtForm";
 
 const API_URL = "https://swdbbmsapi.azurewebsites.net/api/court";
 
@@ -44,42 +45,42 @@ const CourtClient = () => {
         }
     };
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const cookies = parseCookies();
-            const token = cookies.sessionToken;
+    const fetchData = useCallback(async () => {
+        const cookies = parseCookies();
+        const token = cookies.sessionToken;
 
-            try {
-                const response = await fetch(`${API_URL}?page-number=${pageNumber}&page-size=${pageSize}`, {
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error("Network response was not ok");
-                }
-                const responseData = await response.json();
-                //console.log(responseData)
-
-                const mappedData = responseData.map((court: CourtColumns) => {
-                    const courtGroup = courtGroups.find((group: CourtGroup) => group.id === court["court-group"].id);
-                    return {
-                        ...court,
-                        "court-group": courtGroup ? courtGroup.name : "Unknown",
-                    };
-                });
-
-                setData(mappedData);
-                setIsPageFull(checkPageFull(responseData.length));
-                setIsNextPageEmpty(await checkNextPageEmpty(pageNumber));
-            } catch (error) {
-                console.error("Failed to fetch data:", error);
+        try {
+            const response = await fetch(`${API_URL}?page-number=${pageNumber}&page-size=${pageSize}`, {
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            if (!response.ok) {
+                throw new Error("Network response was not ok");
             }
-        };
+            const responseData = await response.json();
+            //console.log(responseData)
 
+            const mappedData = responseData.map((court: CourtColumns) => {
+                const courtGroup = courtGroups.find((group: CourtGroup) => group.id === court["court-group"].id);
+                return {
+                    ...court,
+                    "court-group": courtGroup ? courtGroup.name : "Unknown",
+                };
+            });
+
+            setData(mappedData);
+            setIsPageFull(checkPageFull(responseData.length));
+            setIsNextPageEmpty(await checkNextPageEmpty(pageNumber));
+        } catch (error) {
+            console.error("Failed to fetch data:", error);
+        }
+    }, [pageNumber, pageSize]);
+
+    useEffect(() => {
         fetchData();
-    }, [pageNumber, pageSize, data]);
+    }, [fetchData]);
 
     const handleNextPage = () => {
         setPageNumber((prevPageNumber) => prevPageNumber + 1);
@@ -87,6 +88,10 @@ const CourtClient = () => {
 
     const handlePreviousPage = () => {
         setPageNumber((prevPageNumber) => Math.max(prevPageNumber - 1, 1));
+    };
+
+    const handleUpdateCourt = () => {
+        fetchData();
     };
 
     const [loading, setLoading] = useState(false);
@@ -102,6 +107,7 @@ const CourtClient = () => {
                 isPreviousDisabled={pageNumber <= 1}
                 loading={loading}
             />
+            <EditCourtForm onUpdate={handleUpdateCourt} />
         </div>
     );
 };

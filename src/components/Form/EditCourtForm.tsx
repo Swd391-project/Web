@@ -37,11 +37,15 @@ import axios from "axios";
 import { useModal } from "@/hook/useModal";
 import { toast } from "react-toastify";
 
+interface EditCourtFormProps {
+    onUpdate: () => void; // Define the type of onUpdate prop
+}
+
 const formSchema = z.object({
     status: z.string().min(2, "Full name must be at least 2 characters"),
 });
 
-const EditCourtForm = () => {
+const EditCourtForm: React.FC<EditCourtFormProps> = ({ onUpdate }) => {
     const { isOpen, type, onClose, data } = useModal();
     const isModalOpen = isOpen && type === "EditCourtForm";
     const router = useRouter();
@@ -72,7 +76,7 @@ const EditCourtForm = () => {
                 onClose();
                 form.reset();
                 router.refresh();
-
+                onUpdate();
             } catch (error) {
                 console.error(error);
                 toast.error("Đã có lỗi xảy ra!");
@@ -104,11 +108,11 @@ const EditCourtForm = () => {
                                                     name="status"
                                                     render={({ field }) => (
                                                         <FormItem>
-                                                            <FormLabel>Email</FormLabel>
+                                                            <FormLabel>Trạng thái hoạt động</FormLabel>
                                                             <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                                 <FormControl>
                                                                     <SelectTrigger>
-                                                                        <SelectValue placeholder="Select a verified email to display" />
+                                                                        <SelectValue placeholder="Chỉnh sửa trạng thái sân" />
                                                                     </SelectTrigger>
                                                                 </FormControl>
                                                                 <SelectContent>

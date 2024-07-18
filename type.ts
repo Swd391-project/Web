@@ -44,7 +44,7 @@ export type UserColumn = {
   username: string;
   "full-name": string;
   role: string;
-  image_url: string;
+  image: string;
   email: string;
   password: string;
   status: string;

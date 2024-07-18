@@ -54,6 +54,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         });
 
         const decodedUser: User = jwtDecode(token);
+
         const user = {
           userId: decodedUser.userId,
           username: decodedUser.username,
@@ -62,7 +63,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
           fullName: fullName,
           role: decodedUser.role,
         };
-
+        if (user.role === "Customer") {
+          router.push('/access-denied');
+        }
         setUser(user);
         window.localStorage.setItem("user", JSON.stringify(user));
         // window.localStorage.setItem("fullName", fullName);

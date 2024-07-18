@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { User, UserColumn } from "../../../../type";
 import { columns } from "./column";
 import { DataTable } from "./data-table";
@@ -44,34 +44,36 @@ const UserClient = () => {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const cookies = parseCookies();
-      const token = cookies.sessionToken;
 
-      try {
-        const response = await fetch(`${API_URL}?page-number=${pageNumber}&page-size=${pageSize}`, {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+  const fetchData = useCallback(async () => {
+    const cookies = parseCookies();
+    const token = cookies.sessionToken;
 
-        if (!response.ok) {
-          throw new Error("Network response was not ok");
-        }
+    try {
+      const response = await fetch(`${API_URL}?page-number=${pageNumber}&page-size=${pageSize}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
-        const responseData = await response.json();
-
-        setData(responseData);
-        setIsPageFull(checkPageFull(responseData.length));
-        setIsNextPageEmpty(await checkNextPageEmpty(pageNumber));
-      } catch (error) {
-        console.error("Failed to fetch data:", error);
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    };
+
+      const responseData = await response.json();
+
+      setData(responseData);
+      setIsPageFull(checkPageFull(responseData.length));
+      setIsNextPageEmpty(await checkNextPageEmpty(pageNumber));
+    } catch (error) {
+      console.error("Failed to fetch data:", error);
+    }
+  }, [pageNumber, pageSize]);
+
+  useEffect(() => {
     fetchData();
-  }, [pageNumber, pageSize, data]);
+  }, [fetchData]);
 
 
 
@@ -82,6 +84,10 @@ const UserClient = () => {
 
   const handlePreviousPage = () => {
     setPageNumber((prevPageNumber) => Math.max(prevPageNumber - 1, 1));
+  };
+
+  const handleUpdateUser = () => {
+    fetchData();
   };
 
   const [loading, setLoading] = useState(false);
@@ -96,6 +102,7 @@ const UserClient = () => {
         isPreviousDisabled={pageNumber <= 1}
         loading={loading}
       />
+      <EditUserForm onUpdate={handleUpdateUser} />
     </div>
   );
 };

@@ -18,13 +18,21 @@ const ModalProvider = () => {
         console.log("Booking deleted successfully!");
     };
 
+    const handleUpdateUserSuccess = () => {
+        console.log("User update successfully!");
+    };
+
+    const handleUpdateCourtSuccess = () => {
+        console.log("User update successfully!");
+    };
+
     if (!isMounted) return null;
     return (
         <>
-            <EditUserForm />
+            <EditUserForm onUpdate={handleUpdateUserSuccess} />
             <DeleteUserForm />
             <EditCourtGroupForm />
-            <EditCourtForm />
+            <EditCourtForm onUpdate={handleUpdateCourtSuccess} />
             <DeleteBookingForm onDeleteSuccess={handleDeleteBookingSuccess} />
             <CheckInCheckOutForm />
         </>

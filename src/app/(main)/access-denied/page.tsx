@@ -1,6 +1,6 @@
 // pages/access-denied.tsx
 import React from 'react';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 
 const AccessDenied = () => {
     const router = useRouter();

@@ -21,6 +21,7 @@ export type Court = {
   "courtGroupId": string;
   "court-group-name": string;
   "created-date": string;
+  name: string;
 };
 
 export type BookingList = {

@@ -1,6 +1,6 @@
 "use client";
 import BreadScrum from "@/components/BreadScrum";
-import Profile from "@/components/CourtGroupId/Profile";
+import Profile from "@/components/CourtId/Profile";
 import { Court, CourtGroup, User } from "../../../../../../type";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
@@ -75,8 +75,7 @@ const CourtIdPage = ({ params }: CourtIdProps) => {
                         />
                         <Profile
                             id={court.id}
-                            name={court["court-group-name"]}
-                            status={status}
+                            court-group-name={court["court-group-name"]}
                         />
                     </div>
                 </div>

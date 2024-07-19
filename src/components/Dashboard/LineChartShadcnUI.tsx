@@ -1,8 +1,8 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { TrendingUp } from "lucide-react";
 import { CartesianGrid, LabelList, Line, LineChart, XAxis } from "recharts";
-
 import {
   Card,
   CardContent,
@@ -17,25 +17,21 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [
-  { month: "6M", desktop: 186, mobile: 80 },
-  { month: "5M", desktop: 305, mobile: 200 },
-  { month: "4M", desktop: 237, mobile: 120 },
-  { month: "3M", desktop: 73, mobile: 190 },
-  { month: "2M", desktop: 209, mobile: 130 },
-  { month: "1M", desktop: 214, mobile: 140 },
+
+// Mảng màu sử dụng cho các nhóm sân mới
+const colors = [
+  "#FF6384",
+  "#36A2EB",
+  "#FFCE56",
+  "#4BC0C0",
+  "#9966FF",
+  "#FF9F40",
+  "#FFCD1A",
 ];
 
-const chartConfig = {
-  desktop: {
-    label: "Desktop",
-    color: "red",
-  },
-  mobile: {
-    label: "Mobile",
-    color: "blue",
-  },
-} satisfies ChartConfig;
+// Hàm để ánh xạ thiết bị với màu
+const getColor = (index: number) => colors[index % colors.length];
+
 const currentMonth = new Date().toLocaleString("default", { month: "long" });
 const currentDate = new Date();
 const last6MonthDate = new Date(
@@ -43,13 +39,46 @@ const last6MonthDate = new Date(
 );
 const last6Month = last6MonthDate.toLocaleString("default", { month: "long" });
 const currentYear = new Date().getFullYear();
+
 export function LineChartShadcnUI() {
+  const [chartData, setChartData] = useState<any[]>([]);
+  const [chartConfig, setChartConfig] = useState<ChartConfig>({});
+
+  useEffect(() => {
+    fetch(
+      "https://swdbbmsapi.azurewebsites.net/api/booking/bookings-dashboard-linechart"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // Chuyển đổi dữ liệu thành định dạng recharts
+        const transformedData = data.map((monthData: any) => {
+          const monthRecord: any = { month: monthData.month };
+          monthData["court-groups"].forEach((group: any) => {
+            monthRecord[group["court-group-name"]] = group["booking-amount"];
+          });
+          return monthRecord;
+        });
+        setChartData(transformedData);
+
+        // Tạo cấu hình biểu đồ động
+        const newChartConfig: ChartConfig = {};
+        if (data.length > 0 && data[0]["court-groups"].length > 0) {
+          data[0]["court-groups"].forEach((group: any, index: number) => {
+            newChartConfig[group["court-group-name"]] = {
+              label: group["court-group-name"],
+              color: getColor(index),
+            };
+          });
+        }
+        setChartConfig(newChartConfig);
+      });
+  }, []);
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>Line Chart - Label</CardTitle>
         <CardDescription>
-          {" "}
           {last6Month} - {`${currentMonth}`} {currentYear}
         </CardDescription>
       </CardHeader>
@@ -81,10 +110,10 @@ export function LineChartShadcnUI() {
                 key={key}
                 dataKey={key}
                 type="natural"
-                stroke={`var(--color-${key})`}
+                stroke={chartConfig[key].color}
                 strokeWidth={3}
                 dot={{
-                  fill: `var(--color-${key})`,
+                  fill: chartConfig[key].color,
                 }}
                 activeDot={{
                   r: 6,
@@ -98,26 +127,6 @@ export function LineChartShadcnUI() {
                 />
               </Line>
             ))}
-            {/* 
-            <Line
-              dataKey="desktop"
-              type="natural"
-              stroke="var(--color-desktop)"
-              strokeWidth={3}
-              dot={{
-                fill: "var(--color-desktop)",
-              }}
-              activeDot={{
-                r: 6,
-              }}
-            >
-              <LabelList
-                position="top"
-                offset={12}
-                className="fill-foreground"
-                fontSize={12}
-              />
-            </Line> */}
           </LineChart>
         </ChartContainer>
       </CardContent>
@@ -126,10 +135,11 @@ export function LineChartShadcnUI() {
           Trending up by 5.2% this month <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
-          Showing total visitors for the last 6 months
+          Showing total bookings of court groups for the last 6 months
         </div>
       </CardFooter>
     </Card>
   );
 }
+
 export default LineChartShadcnUI;

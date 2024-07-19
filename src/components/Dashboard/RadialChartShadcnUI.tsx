@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { TrendingUp } from "lucide-react";
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
@@ -18,11 +19,12 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
-  { month: "january", thisMonthBooking: 24, thisYearBooking: 100 },
-];
+interface ChartData {
+  month: number;
+  thisMonthBooking: number;
+  thisYearBooking: number;
+}
 
-const { thisMonthBooking, thisYearBooking } = chartData[0];
 const chartConfig = {
   thisMonthBooking: {
     label: "This month bookings",
@@ -33,17 +35,46 @@ const chartConfig = {
     color: "#2762D9",
   },
 } satisfies ChartConfig;
+
 const currentMonth = new Date().toLocaleString("default", { month: "long" });
 const currentYear = new Date().getFullYear();
+
 export function RadialChartShadcnUI() {
-  const totalVisitors = chartData[0].thisYearBooking;
+  const [chartData, setChartData] = useState<ChartData | null>(null);
+
+  useEffect(() => {
+    const fetchChartData = async () => {
+      try {
+        const response = await fetch(
+          "https://swdbbmsapi.azurewebsites.net/api/booking/bookings-dashboard-radialchart"
+        );
+        const data = await response.json();
+        setChartData({
+          month: data.month,
+          thisMonthBooking: data["this-month-booking"],
+          thisYearBooking: data["this-year-booking"],
+        });
+      } catch (error) {
+        console.error("Error fetching chart data:", error);
+      }
+    };
+
+    fetchChartData();
+  }, []);
+
+  if (!chartData) {
+    return <div>Loading...</div>;
+  }
+
+  const { thisMonthBooking, thisYearBooking } = chartData;
+  const totalVisitors = thisYearBooking;
+
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
         <CardTitle>Radial Chart - Stacked</CardTitle>
         <CardDescription>
-          {" "}
-          January - {`${currentMonth}`} {currentYear}
+          {`January - ${currentMonth} ${currentYear}`}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
@@ -52,7 +83,7 @@ export function RadialChartShadcnUI() {
           className="mx-auto aspect-square w-full max-w-[250px]"
         >
           <RadialBarChart
-            data={chartData}
+            data={[chartData]}
             endAngle={180}
             innerRadius={80}
             outerRadius={130}
@@ -84,6 +115,7 @@ export function RadialChartShadcnUI() {
                       </text>
                     );
                   }
+                  return null;
                 }}
               />
             </PolarRadiusAxis>
@@ -108,8 +140,8 @@ export function RadialChartShadcnUI() {
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
           This month accounts for{" "}
-          {`${(thisMonthBooking / thisYearBooking) * 100}%`} for this year{" "}
-          <TrendingUp className="h-4 w-4" />
+          {`${((thisMonthBooking / thisYearBooking) * 100).toFixed(2)}%`} for
+          this year <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
           Displays the booking rate this month compared to this year
@@ -118,4 +150,5 @@ export function RadialChartShadcnUI() {
     </Card>
   );
 }
+
 export default RadialChartShadcnUI;

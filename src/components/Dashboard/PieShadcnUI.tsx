@@ -1,5 +1,6 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { TrendingUp } from "lucide-react";
 import { Pie, PieChart } from "recharts";
 
@@ -18,20 +19,13 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
-const chartData = [
-  { bookingStatus: "Confirmed", bookings: 275, fill: "var(--color-Confirmed)" },
-  { bookingStatus: "Cancelled", bookings: 200, fill: "var(--color-Cancelled)" },
-  { bookingStatus: "Completed", bookings: 187, fill: "var(--color-Completed)" },
-  {
-    bookingStatus: "InProgress",
-    bookings: 173,
-    fill: "var(--color-InProgress)",
-  },
-  { bookingStatus: "Expired", bookings: 90, fill: "var(--color-Expired)" },
-];
+// Định nghĩa kiểu dữ liệu cho item
+interface ChartDataItem {
+  browser: string;
+  bookings: number;
+  fill: string;
+}
 
-const currentMonth = new Date().toLocaleString("default", { month: "long" });
-const currentYear = new Date().getFullYear();
 const chartConfig = {
   bookings: {
     label: "bookings",
@@ -52,13 +46,49 @@ const chartConfig = {
     label: "InProgress",
     color: "#2D96FF",
   },
+  Deleted: {
+    label: "Deleted",
+    color: "#D9534F",
+  },
   Expired: {
     label: "Expired",
     color: "#A2636C",
   },
 } satisfies ChartConfig;
 
-export function PieShadcnUI() {
+const PieShadcnUI = () => {
+  const [chartData, setChartData] = useState<ChartDataItem[]>([]);
+  const [thisMonthBooking, setThisMonthBooking] = useState<number>(0);
+  const [thisYearBooking, setThisYearBooking] = useState<number>(0);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(
+        "https://swdbbmsapi.azurewebsites.net/api/booking/bookings-dashboard-piechart"
+      );
+      const data: ChartDataItem[] = await response.json();
+      setChartData(data);
+
+      // Giả sử `thisMonthBooking` được lấy từ API khác hoặc tính toán
+      const monthBooking = 10; // Dữ liệu mẫu
+      const yearBooking = data.reduce(
+        (total: number, item: ChartDataItem) => total + item.bookings,
+        0
+      );
+      setThisMonthBooking(monthBooking);
+      setThisYearBooking(yearBooking);
+    };
+
+    fetchData();
+  }, []);
+
+  const currentMonth = new Date().toLocaleString("default", { month: "long" });
+  const currentYear = new Date().getFullYear();
+  const bookingPercentage = (
+    (thisMonthBooking / thisYearBooking) *
+    100
+  ).toFixed(2);
+
   return (
     <Card className="flex flex-col">
       <CardHeader className="items-center pb-0">
@@ -77,13 +107,13 @@ export function PieShadcnUI() {
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
             />
-            <Pie data={chartData} dataKey="bookings" nameKey="bookingStatus" />
+            <Pie data={chartData} dataKey="bookings" nameKey="browser" />
           </PieChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
         <div className="flex items-center gap-2 font-medium leading-none">
-          Booking's types this year
+          This month accounts for {bookingPercentage}% for this year{" "}
           <TrendingUp className="h-4 w-4" />
         </div>
         <div className="leading-none text-muted-foreground">
@@ -92,5 +122,6 @@ export function PieShadcnUI() {
       </CardFooter>
     </Card>
   );
-}
+};
+
 export default PieShadcnUI;

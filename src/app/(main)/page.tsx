@@ -5,8 +5,11 @@ import WaveChart from "@/components/Dashboard/WaveChart";
 import NewBirdList from "@/components/Dashboard/NewBirdList";
 import ColumnChart from "@/components/Dashboard/ColumnChart";
 import PieChart from "@/components/Dashboard/PieChart";
+import PieShadcnUI from "@/components/Dashboard/PieShadcnUI";
 
 import React, { useEffect } from "react";
+import LineChartShadcnUI from "@/components/Dashboard/LineChartShadcnUI";
+import RadialChartShadcnUI from "@/components/Dashboard/RadialChartShadcnUI";
 
 const page = () => {
   return (
@@ -25,16 +28,17 @@ const page = () => {
 
               <div className="row">
                 <div className="col-lg-8">
-                  <WaveChart />
+                  <LineChartShadcnUI />
                 </div>
                 <div className="col-lg-4">
-                  <NewBirdList />
-                </div>
-                <div className="col-lg-6">
-                  <PieChart />
-                </div>
-                <div className="col-lg-6">
-                  <ColumnChart />
+                  <div className="d-flex flex-column h-100">
+                    <div className="mb-3">
+                      <PieShadcnUI />
+                    </div>
+                    <div>
+                      <RadialChartShadcnUI />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

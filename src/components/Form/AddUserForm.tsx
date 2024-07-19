@@ -44,16 +44,20 @@ const usersType: userType[] = [
 ];
 
 const formSchema = z.object({
-  image: z.string(),
+  // image: z.string(),
+  // email: z.string().email({ message: "Email không hợp lệ" }),
+  // password: z.string().refine((value) => /^[A-Z].*$/.test(value), {
+  //   message: "Password phải bắt đầu bằng một chữ cái viết hoa",
+  // }),
+  // "full-name": z.string().min(2),
+  // role: z.string(),
+  // "phone-number": z.string(),
+  image: z.string().min(1, "Hình ảnh phải được tải lên"),
   email: z.string().email({ message: "Email không hợp lệ" }),
-  password: z.string().refine((value) => /^[A-Z].*$/.test(value), {
-    message: "Password phải bắt đầu bằng một chữ cái viết hoa",
-  }),
-  "full-name": z.string().min(2),
-  role: z.string(),
-  "phone-number": z.string(),
-  // createdBy: z.number(),
-  // modifiedBy: z.number(),
+  password: z.string().min(8, "Password phải có ít nhất 8 kí tự").regex(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/, "Password phải bao gồm chữ hoa, chữ thường và số"),
+  "full-name": z.string().min(2, "Họ tên phải có ít nhất 2 kí tự"),
+  role: z.string().min(1, "Vai trò phải được chọn"),
+  "phone-number": z.string().min(1, "Số điện thoại phải được nhập"),
 });
 const AddUserForm = () => {
   // 1. Define your form.
@@ -143,6 +147,7 @@ const AddUserForm = () => {
                               placeholder="Nhập email"
                               {...field}
                               className="form-control"
+                              required
                             />
                           </FormControl>
 
@@ -163,6 +168,7 @@ const AddUserForm = () => {
                               placeholder="Nhập họ tên"
                               {...field}
                               className="form-control"
+                              required
                             />
                           </FormControl>
 
@@ -183,6 +189,7 @@ const AddUserForm = () => {
                               placeholder="Nhập số điện thoại"
                               {...field}
                               className="form-control"
+                              required
                             />
                           </FormControl>
 
@@ -204,6 +211,7 @@ const AddUserForm = () => {
                               placeholder="Nhập mật khẩu"
                               {...field}
                               className="form-control"
+                              required
                             />
                           </FormControl>
 
@@ -223,6 +231,7 @@ const AddUserForm = () => {
                             onValueChange={field.onChange}
                             value={field.value}
                             defaultValue={field.value}
+                            required
                           >
                             <FormControl>
                               <SelectTrigger>

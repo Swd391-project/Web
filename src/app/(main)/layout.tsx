@@ -8,6 +8,7 @@ import { QueryProvider } from "@/provider/query-provider";
 import { useAuth } from "@/context/authContext";
 import { useRouter } from "next/navigation";
 import ModalProvider from "@/provider/modal-provider";
+import { toast } from "react-toastify";
 
 export default function RootLayout({
   children,
@@ -17,9 +18,10 @@ export default function RootLayout({
   const router = useRouter();
   const { user } = useAuth()
 
-  // if (!user) {
-  //   router.push('/login-in')
-  // }
+  if (!user) {
+    toast.warning("Bạn cần đăng nhập trước khi thao tác");
+    router.push('/sign-in')
+  }
   return (
     <div>
       <QueryProvider>

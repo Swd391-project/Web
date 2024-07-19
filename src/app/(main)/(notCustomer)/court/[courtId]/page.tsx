@@ -2,7 +2,6 @@
 import BreadScrum from "@/components/BreadScrum";
 import Profile from "@/components/CourtId/Profile";
 import { Court, CourtGroup, User } from "../../../../../../type";
-import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { parseCookies } from "nookies";
 

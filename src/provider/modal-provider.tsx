@@ -30,6 +30,10 @@ const ModalProvider = () => {
         console.log("Court Group update successfully!");
     };
 
+    const handleCICOSuccess = () => {
+        console.log("CICO update successfully!");
+    };
+
     if (!isMounted) return null;
     return (
         <>
@@ -38,7 +42,7 @@ const ModalProvider = () => {
             <EditCourtGroupForm onUpdate={handleUpdateCourtGroupSuccess} />
             <EditCourtForm onUpdate={handleUpdateCourtSuccess} />
             <DeleteBookingForm onDeleteSuccess={handleDeleteBookingSuccess} />
-            <CheckInCheckOutForm />
+            <CheckInCheckOutForm onUpdate={handleCICOSuccess} />
         </>
     );
 };

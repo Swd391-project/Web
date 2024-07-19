@@ -4,6 +4,7 @@ import useCourtGroup from "@/hook/useCourtGroup";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 
 type CourtGroup = {
   id: number;
@@ -11,13 +12,15 @@ type CourtGroup = {
   // other properties if any
 };
 
+
+
 const Header = () => {
   const { user } = useAuth();
   const { courtGroups } = useCourtGroup();
   const userName = user?.fullName;
   const imageUrl = user?.userImage;
   const [selectedCourtGroupId, setSelectedCourtGroupId] = useState<number | null>(null);
-
+  const router = useRouter();
   useEffect(() => {
     const storedCourtGroupId = sessionStorage.getItem("selectedCourtGroupId");
     if (storedCourtGroupId) {
@@ -29,7 +32,6 @@ const Header = () => {
     if (selectedCourtGroupId !== null) {
       sessionStorage.setItem("selectedCourtGroupId", selectedCourtGroupId.toString());
     }
-    // Dispatch a custom event to notify about the change
     const event = new CustomEvent("courtGroupIdChange", { detail: selectedCourtGroupId });
     window.dispatchEvent(event);
   }, [selectedCourtGroupId]);
@@ -37,6 +39,15 @@ const Header = () => {
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedId = parseInt(e.target.value, 10);
     setSelectedCourtGroupId(selectedId);
+  };
+
+  const deleteCookie = (name: any) => {
+    document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;';
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    router.push('/sign-in');
   };
 
   return (
@@ -67,7 +78,7 @@ const Header = () => {
                   value={selectedCourtGroupId !== null ? selectedCourtGroupId : ""}
                   onChange={handleSelectChange}
                 >
-                  <option value="">Chọn cụm sân</option>
+                  {/* <option value="">Chọn cụm sân</option> */}
                   {courtGroups.map((group) => (
                     <option key={group.id} value={group.id}>
                       {group.name}
@@ -115,7 +126,8 @@ const Header = () => {
                       <i className="far fa-user" />
                       <span className="ml-2">Hồ sơ</span>
                     </Link>
-                    <a href="/sign-in">
+                    {/* <a href="/sign-in"> */}
+                    <a onClick={handleLogout}>
                       <i className="fas fa-sign-in-alt" />
                       <span className="ml-2">Logout</span>
                     </a>

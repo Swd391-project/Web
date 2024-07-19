@@ -3,22 +3,22 @@ import { useAuth } from "@/context/authContext";
 import React from "react";
 import { User } from "../../../type";
 
-
 const Profile = ({
     username,
     "full-name": fullName,
     role,
-    imageUrl,
+    image,
     "phone-number": phoneNumber,
 }: {
     username: string;
     "full-name": string;
     role: string;
-    imageUrl: string;
+    image: string;
     "phone-number": string;
 }) => {
     const { user } = useAuth();
     const isAdmin = user?.role === "Admin";
+
     return (
         <div className="card">
             <div className="card-header">
@@ -27,36 +27,34 @@ const Profile = ({
             <div className="card-body">
                 <div className="basic-form">
                     <form>
-                        <div className="row">
-                            <div className="col-xl-4">
-                                <div className="form-group row widget-3">
-
-                                    <div className="w-[300px] h-[200px]">
-                                        <img src={imageUrl ? imageUrl : "/assets/images/noimage.jpg"} alt="image" className="rounded-md " />
+                        <div className="flex flex-wrap">
+                            <div className="w-full lg:w-1/2 p-2">
+                                <div className="form-group">
+                                    <div className="w-full h-full flex justify-center items-center">
+                                        <img src={image ? image : "/assets/images/noimage.jpg"} alt="Profile" className="rounded-md object-contain max-h-[500px] max-w-full" />
                                     </div>
                                 </div>
                             </div>
 
-                            <div className="col-xl-8 ">
-
-                                <div className="flex justify-between mb-2.5;">
-                                    <label className="basis-[30%]">User Name:</label>
-                                    <div className="grow pl-2.5">{username}</div>
+                            <div className="w-full lg:w-1/2 p-2">
+                                <div className="mb-4 flex justify-between">
+                                    <label className="w-1/3">User Name:</label>
+                                    <div className="w-2/3">{username}</div>
                                 </div>
 
-                                <div className="flex justify-between mb-2.5;">
-                                    <label className="basis-[30%]">Full Name:</label>
-                                    <div className="grow pl-2.5">{fullName}</div>
+                                <div className="mb-4 flex justify-between">
+                                    <label className="w-1/3">Full Name:</label>
+                                    <div className="w-2/3">{fullName}</div>
                                 </div>
 
-                                <div className="flex justify-between mb-2.5;">
-                                    <label className="basis-[30%]">Role:</label>
-                                    <div className="grow pl-2.5">{role}</div>
+                                <div className="mb-4 flex justify-between">
+                                    <label className="w-1/3">Role:</label>
+                                    <div className="w-2/3">{role}</div>
                                 </div>
 
-                                <div className="flex justify-between mb-2.5;">
-                                    <label className="basis-[30%]">Phone number:</label>
-                                    <div className="grow pl-2.5">{phoneNumber}</div>
+                                <div className="mb-4 flex justify-between">
+                                    <label className="w-1/3">Phone number:</label>
+                                    <div className="w-2/3">{phoneNumber}</div>
                                 </div>
                             </div>
                         </div>

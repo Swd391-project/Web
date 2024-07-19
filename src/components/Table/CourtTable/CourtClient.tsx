@@ -60,7 +60,6 @@ const CourtClient = () => {
                 throw new Error("Network response was not ok");
             }
             const responseData = await response.json();
-            //console.log(responseData)
 
             const mappedData = responseData.map((court: CourtColumns) => {
                 const courtGroup = courtGroups.find((group: CourtGroup) => group.id === court["court-group"].id);
@@ -68,6 +67,7 @@ const CourtClient = () => {
                     ...court,
                     "court-group": courtGroup ? courtGroup.name : "Unknown",
                 };
+
             });
 
             setData(mappedData);
@@ -76,7 +76,7 @@ const CourtClient = () => {
         } catch (error) {
             console.error("Failed to fetch data:", error);
         }
-    }, [pageNumber, pageSize]);
+    }, [pageNumber, pageSize, courtGroups]);
 
     useEffect(() => {
         fetchData();

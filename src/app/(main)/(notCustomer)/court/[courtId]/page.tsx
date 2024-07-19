@@ -1,24 +1,25 @@
 "use client";
 import BreadScrum from "@/components/BreadScrum";
-import Profile from "@/components/BookingId/Profile";
+import Profile from "@/components/CourtId/Profile";
+import { Court, CourtGroup, User } from "../../../../../../type";
+import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { parseCookies } from "nookies";
-import { BookingListColumns, User } from "../../../../../type";
 
-interface BookingIdPageProps {
+interface CourtIdProps {
     params: {
-        bookingId: number;
+        courtId: string;
     };
 }
 
-const BookingIdPage = ({ params }: BookingIdPageProps) => {
-    const [booking, setBooking] = useState<BookingListColumns | null>(null);
+const CourtIdPage = ({ params }: CourtIdProps) => {
+    const [court, setCourt] = useState<Court | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const API_URL = `https://swdbbmsapi.azurewebsites.net/api/booking/${params.bookingId}`;
+    const API_URL = `https://swdbbmsapi.azurewebsites.net/api/court/details/${params.courtId}`;
 
     useEffect(() => {
-        const fetchBooking = async () => {
+        const fetchCourt = async () => {
             try {
                 const cookies = parseCookies();
                 const token = cookies.sessionToken;
@@ -33,11 +34,11 @@ const BookingIdPage = ({ params }: BookingIdPageProps) => {
                 console.log(response);
 
                 if (!response.ok) {
-                    throw new Error("Failed to fetch user data");
+                    throw new Error("Failed to fetch court group data");
                 }
 
-                const data: BookingListColumns = await response.json();
-                setBooking(data);
+                const data: Court = await response.json();
+                setCourt(data);
             } catch (err: any) {
                 setError(err.message);
             } finally {
@@ -45,7 +46,7 @@ const BookingIdPage = ({ params }: BookingIdPageProps) => {
             }
         };
 
-        fetchBooking();
+        fetchCourt();
     }, [API_URL]);
 
     if (loading) {
@@ -56,7 +57,10 @@ const BookingIdPage = ({ params }: BookingIdPageProps) => {
         return <div className="content-body h-[650px]">Error: {error}</div>;
     }
 
-    if (!booking) return null;
+
+    if (!court) return null;
+
+    const status = court.status === "Available" ? "Đang hoạt động" : "Không hoạt động";
 
     return (
         <div id="main-wrapper" className="show">
@@ -64,20 +68,14 @@ const BookingIdPage = ({ params }: BookingIdPageProps) => {
                 <div className="warper container-fluid">
                     <div className="all-patients main_container">
                         <BreadScrum
-                            title="Thông Tin Nhân Viên"
-                            subRouteTitle="user"
-                            subTitle1="Tất Cả Nhân Viên"
-                            subTitle2="Thông Tin Nhân Viên"
+                            title="Thông Tin Cụm Sân"
+                            subRouteTitle="court-group"
+                            subTitle1="Tất Cả Cụm Sân"
+                            subTitle2="Thông Tin Cụm Sân"
                         />
                         <Profile
-                            id={booking.id}
-                            date={booking.date}
-                            status={booking.status}
-                            full-name={booking.customer["full-name"]}
-                            from-time={booking["from-time"]}
-                            to-time={booking["to-time"]}
-                            court-id={booking["court-id"]}
-                            created-date={booking["created-date"]}
+                            id={court.id}
+                            court-group-name={court["court-group-name"]}
                         />
                     </div>
                 </div>
@@ -86,4 +84,4 @@ const BookingIdPage = ({ params }: BookingIdPageProps) => {
     );
 };
 
-export default BookingIdPage;
+export default CourtIdPage;

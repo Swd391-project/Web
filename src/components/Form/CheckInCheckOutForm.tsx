@@ -86,6 +86,7 @@ const CheckInCheckOutForm = () => {
             router.refresh();
         } catch (error: any) {
             // console.log(error);
+            console.log(error.response.data)
             toast.error(error.response.data);
         }
     };

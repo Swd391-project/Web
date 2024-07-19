@@ -1,25 +1,24 @@
 "use client";
 import BreadScrum from "@/components/BreadScrum";
-import Profile from "@/components/UserId/Profile";
-import { User } from "../../../../../../type";
-import { useParams } from "next/navigation";
+import Profile from "@/components/BookingId/Profile";
 import React, { useEffect, useState } from "react";
 import { parseCookies } from "nookies";
+import { BookingListColumns } from "../../../../../../type";
 
-interface UserIdPageProps {
+interface BookingIdPageProps {
     params: {
-        userId: string;
+        bookingId: number;
     };
 }
 
-const UserIdPage = ({ params }: UserIdPageProps) => {
-    const [user, setUser] = useState<User | null>(null);
+const BookingIdPage = ({ params }: BookingIdPageProps) => {
+    const [booking, setBooking] = useState<BookingListColumns | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
-    const API_URL = `https://swdbbmsapi.azurewebsites.net/api/user/${params.userId}`;
+    const API_URL = `https://swdbbmsapi.azurewebsites.net/api/booking/${params.bookingId}`;
 
     useEffect(() => {
-        const fetchUser = async () => {
+        const fetchBooking = async () => {
             try {
                 const cookies = parseCookies();
                 const token = cookies.sessionToken;
@@ -31,15 +30,14 @@ const UserIdPage = ({ params }: UserIdPageProps) => {
                     },
                 });
 
-                //console.log(response);
+                console.log(response);
 
                 if (!response.ok) {
                     throw new Error("Failed to fetch user data");
                 }
 
-                const data: User = await response.json();
-                //console.log(data)
-                setUser(data);
+                const data: BookingListColumns = await response.json();
+                setBooking(data);
             } catch (err: any) {
                 setError(err.message);
             } finally {
@@ -47,7 +45,7 @@ const UserIdPage = ({ params }: UserIdPageProps) => {
             }
         };
 
-        fetchUser();
+        fetchBooking();
     }, [API_URL]);
 
     if (loading) {
@@ -58,7 +56,7 @@ const UserIdPage = ({ params }: UserIdPageProps) => {
         return <div className="content-body h-[650px]">Error: {error}</div>;
     }
 
-    if (!user) return null;
+    if (!booking) return null;
 
     return (
         <div id="main-wrapper" className="show">
@@ -72,11 +70,14 @@ const UserIdPage = ({ params }: UserIdPageProps) => {
                             subTitle2="Thông Tin Nhân Viên"
                         />
                         <Profile
-                            image={user.image}
-                            username={user.email}
-                            full-name={user["full-name"]}
-                            role={user.role}
-                            phone-number={user["phone-number"]}
+                            id={booking.id}
+                            date={booking.date}
+                            status={booking.status}
+                            full-name={booking.customer["full-name"]}
+                            from-time={booking["from-time"]}
+                            to-time={booking["to-time"]}
+                            court-id={booking["court-id"]}
+                            created-date={booking["created-date"]}
                         />
                     </div>
                 </div>
@@ -85,4 +86,4 @@ const UserIdPage = ({ params }: UserIdPageProps) => {
     );
 };
 
-export default UserIdPage;
+export default BookingIdPage;

@@ -33,7 +33,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
     const onCopy = (id: string) => {
         navigator.clipboard.writeText(id);
     };
-
+    //console.log(data)
     return (
         <>
             <DropdownMenu>
@@ -50,7 +50,7 @@ export const CellAction: React.FC<CellActionProps> = ({ data }) => {
                     >
                         <Edit className="mr-2 h-4 w-4" /> Chỉnh xửa
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => router.push(`user/${data.id}`)}>
+                    <DropdownMenuItem onClick={() => router.push(`court/${data.id}`)}>
                         <Edit className="mr-2 h-4 w-4" /> Chi tiết
                     </DropdownMenuItem>
                     {/* <DropdownMenuItem

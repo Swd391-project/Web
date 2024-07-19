@@ -1,6 +1,7 @@
-// pages/access-denied.tsx
+"use client"
 import React from 'react';
-import { useRouter } from 'next/router';
+
+import { useRouter } from 'next/navigation';
 
 const AccessDenied = () => {
     const router = useRouter();

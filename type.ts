@@ -5,7 +5,7 @@ export interface User {
   "phone-number": string;
   password: string;
   role: string;
-  imageUrl: string;
+  image: string;
   email: string
 }
 
@@ -19,6 +19,9 @@ export type Court = {
   id: number;
   status: string;
   "courtGroupId": string;
+  "court-group-name": string;
+  "created-date": string;
+  name: string;
 };
 
 export type BookingList = {
@@ -62,6 +65,8 @@ export type CourtColumns = {
   status: string;
   "court-group-id": number;
   "court-group": CourtGroupColumns;
+  "court-group-name": string;
+  "created-date": string;
 };
 
 export type BookingListColumns = {

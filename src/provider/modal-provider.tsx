@@ -23,7 +23,11 @@ const ModalProvider = () => {
     };
 
     const handleUpdateCourtSuccess = () => {
-        console.log("User update successfully!");
+        console.log("Court update successfully!");
+    };
+
+    const handleUpdateCourtGroupSuccess = () => {
+        console.log("Court Group update successfully!");
     };
 
     if (!isMounted) return null;
@@ -31,7 +35,7 @@ const ModalProvider = () => {
         <>
             <EditUserForm onUpdate={handleUpdateUserSuccess} />
             <DeleteUserForm />
-            <EditCourtGroupForm />
+            <EditCourtGroupForm onUpdate={handleUpdateCourtGroupSuccess} />
             <EditCourtForm onUpdate={handleUpdateCourtSuccess} />
             <DeleteBookingForm onDeleteSuccess={handleDeleteBookingSuccess} />
             <CheckInCheckOutForm />

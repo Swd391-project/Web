@@ -4,12 +4,10 @@ import React from "react";
 
 const Profile = ({
     id,
-    name,
-    address,
+    "court-group-name": name,
 }: {
     id: number;
-    name: string;
-    address: string;
+    "court-group-name": string;
 }) => {
     const { user } = useAuth();
     const isAdmin = user?.role === "Admin";
@@ -31,10 +29,10 @@ const Profile = ({
                                     <label className="basis-[30%]">Tên cụm sân:</label>
                                     <div className="grow pl-2.5">{name}</div>
                                 </div>
-                                <div className="flex justify-between mb-2.5;">
+                                {/* <div className="flex justify-between mb-2.5;">
                                     <label className="basis-[30%]">Địa chỉ:</label>
                                     <div className="grow pl-2.5">{address}</div>
-                                </div>
+                                </div> */}
                             </div>
                         </div>
                     </form>

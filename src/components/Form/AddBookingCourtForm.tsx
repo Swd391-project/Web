@@ -64,6 +64,8 @@ const formSchema = z.object({
 const AddBookingCourtForm = () => {
     const { user } = useAuth();
     const [startTime, setStartTime] = useState<string>("");
+    const [selectedDate, setSelectedDate] = useState<string>("");
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -96,12 +98,20 @@ const AddBookingCourtForm = () => {
     }, []);
 
     useEffect(() => {
-        //console.log(courtGroupId);
+        console.log(courtGroupId);
     }, [courtGroupId]);
 
     const API_URL = `https://swdbbmsapi.azurewebsites.net/api/booking/${courtGroupId}`;
     const cookies = parseCookies();
     const token = cookies.sessionToken;
+
+    const filterStartTimes = () => {
+        if (selectedDate === new Date().toISOString().split('T')[0]) {
+            const currentHour = new Date().getHours();
+            return slotsType.filter(slot => parseInt(slot.id.split(":")[0], 10) > currentHour);
+        }
+        return slotsType;
+    };
 
     const onSubmit = async (values: z.infer<typeof formSchema>) => {
         try {
@@ -115,7 +125,7 @@ const AddBookingCourtForm = () => {
             });
 
             if (courtGroupId === null) {
-                toast.error("Xin hãy chọn cụm sân !")
+                toast.error("Xin hãy chọn cụm sân !");
                 form.reset();
             }
 
@@ -124,8 +134,9 @@ const AddBookingCourtForm = () => {
                 form.reset();
             } else {
                 response.json().then(errorData => {
-                    let errorMessage = errorData.message || "Không còn sân";
-                    console.log(errorMessage)
+                    let errorMessage = errorData.message || "Không còn sân !";
+                    console.log(errorData.response)
+                    console.log(errorMessage);
                     toast.error(errorMessage);
                     form.reset();
                 }).catch(() => {
@@ -137,7 +148,9 @@ const AddBookingCourtForm = () => {
             toast.error(error.response.data);
         }
     };
+
     const filteredEndTimeSlots = slotsType.filter(slot => slot.id > startTime);
+
     return (
         <div className="card">
             <div className="card-header">
@@ -162,6 +175,10 @@ const AddBookingCourtForm = () => {
                                                             className="form-control"
                                                             type="date"
                                                             min={new Date().toISOString().split('T')[0]}
+                                                            onChange={(e) => {
+                                                                field.onChange(e);
+                                                                setSelectedDate(e.target.value);
+                                                            }}
                                                         />
                                                     </FormControl>
                                                     <FormMessage />
@@ -192,7 +209,7 @@ const AddBookingCourtForm = () => {
                                                         <SelectContent>
                                                             <SelectGroup>
                                                                 <SelectLabel>Chọn thời gian bắt đầu</SelectLabel>
-                                                                {slotsType.map((item) => (
+                                                                {filterStartTimes().map((item) => (
                                                                     <SelectItem value={item.id} key={item.time}>
                                                                         {item.time}
                                                                     </SelectItem>

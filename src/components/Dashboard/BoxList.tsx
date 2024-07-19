@@ -68,7 +68,7 @@ const BoxList = () => {
                 <i className="fas fa-retweet fa-2x" />
               </span>
               <div className="media-body">
-                <span className="text-white">Sân đang được đặt</span>
+                <span className="text-white">Bookings</span>
                 <h3 className="mb-0 text-white">3</h3>
               </div>
             </div>

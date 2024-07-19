@@ -15,6 +15,7 @@ interface ModalData {
     courtGroup?: CourtGroupColumns;
     court?: CourtColumns;
     booking?: BookingListColumns;
+
 }
 
 interface ModalStore {

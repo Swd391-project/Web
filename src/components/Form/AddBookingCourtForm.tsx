@@ -96,7 +96,7 @@ const AddBookingCourtForm = () => {
     }, []);
 
     useEffect(() => {
-        console.log(courtGroupId);
+        //console.log(courtGroupId);
     }, [courtGroupId]);
 
     const API_URL = `https://swdbbmsapi.azurewebsites.net/api/booking/${courtGroupId}`;
@@ -123,12 +123,18 @@ const AddBookingCourtForm = () => {
                 toast.success("Đặt sân thành công");
                 form.reset();
             } else {
-                toast.error("Việc đặt sân có xảy ra lỗi");
-                form.reset();
+                response.json().then(errorData => {
+                    let errorMessage = errorData.message || "Không còn sân";
+                    console.log(errorMessage)
+                    toast.error(errorMessage);
+                    form.reset();
+                }).catch(() => {
+                    toast.error(`Việc đặt sân có xảy ra lỗi: ${response.status} ${response.statusText}`);
+                    form.reset();
+                });
             }
-        } catch (error) {
-            toast.error("Something went wrong!");
-            console.log(error);
+        } catch (error: any) {
+            toast.error(error.response.data);
         }
     };
     const filteredEndTimeSlots = slotsType.filter(slot => slot.id > startTime);

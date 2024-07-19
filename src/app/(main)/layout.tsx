@@ -17,9 +17,9 @@ export default function RootLayout({
   const router = useRouter();
   const { user } = useAuth()
 
-  // if (!user) {
-  //   router.push('/login-in')
-  // }
+  if (!user) {
+    router.push('/sign-in')
+  }
   return (
     <div>
       <QueryProvider>

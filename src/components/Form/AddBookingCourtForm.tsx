@@ -114,11 +114,16 @@ const AddBookingCourtForm = () => {
                 body: JSON.stringify(values),
             });
 
+            if (courtGroupId === null) {
+                toast.error("Xin hãy chọn cụm sân !")
+                form.reset();
+            }
+
             if (response.ok) {
                 toast.success("Đặt sân thành công");
                 form.reset();
             } else {
-                toast.error("Lịch đã full");
+                toast.error("Việc đặt sân có xảy ra lỗi");
                 form.reset();
             }
         } catch (error) {

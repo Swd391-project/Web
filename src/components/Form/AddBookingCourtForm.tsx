@@ -104,8 +104,9 @@ const AddBookingCourtForm = () => {
     useEffect(() => {
         // console.log(courtGroupId);
     }, [courtGroupId]);
-
-    const API_URL = `https://swdbbmsapi.azurewebsites.net/api/booking/${courtGroupId}`;
+    const effectiveCourtGroupId = courtGroupId || '1';
+    console.log(effectiveCourtGroupId)
+    const API_URL = `https://swdbbmsapi.azurewebsites.net/api/booking/${effectiveCourtGroupId}`;
     const cookies = parseCookies();
     const token = cookies.sessionToken;
 

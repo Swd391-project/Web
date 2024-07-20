@@ -22,6 +22,7 @@ export type Court = {
   "court-group-name": string;
   "created-date": string;
   name: string;
+  "court-group": CourtGroup
 };
 
 export type BookingList = {
@@ -32,6 +33,10 @@ export type BookingList = {
   "to-time": string;
   "customer-id": number;
   "created-date": string;
+  customer: Customer;
+  status: string;
+  court: Court;
+  "court-group": CourtGroup
 };
 
 export interface Customer {

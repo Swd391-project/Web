@@ -59,6 +59,8 @@ const formSchema = z.object({
     date: z.string(),
     "from-time": z.string(),
     "to-time": z.string(),
+    "full-name": z.string(),
+    "phone-number": z.string()
 });
 
 const AddBookingCourtForm = () => {
@@ -72,6 +74,8 @@ const AddBookingCourtForm = () => {
             "from-time": "",
             "to-time": "",
             date: "",
+            "full-name": "",
+            "phone-number": ""
         },
     });
 
@@ -98,7 +102,7 @@ const AddBookingCourtForm = () => {
     }, []);
 
     useEffect(() => {
-        console.log(courtGroupId);
+        // console.log(courtGroupId);
     }, [courtGroupId]);
 
     const API_URL = `https://swdbbmsapi.azurewebsites.net/api/booking/${courtGroupId}`;
@@ -250,6 +254,48 @@ const AddBookingCourtForm = () => {
                                                             </SelectGroup>
                                                         </SelectContent>
                                                     </Select>
+
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <FormField
+                                            control={form.control}
+                                            name="full-name"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="Nhập họ tên"
+                                                            {...field}
+                                                            className="form-control"
+                                                            required
+                                                        />
+                                                    </FormControl>
+
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+
+                                    <div className="form-group">
+                                        <FormField
+                                            control={form.control}
+                                            name="phone-number"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormControl>
+                                                        <Input
+                                                            placeholder="Nhập số điện thoại khách hàng"
+                                                            {...field}
+                                                            className="form-control"
+                                                            required
+                                                        />
+                                                    </FormControl>
 
                                                     <FormMessage />
                                                 </FormItem>

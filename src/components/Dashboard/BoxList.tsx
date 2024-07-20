@@ -1,6 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 const BoxList = () => {
+  const [data, setData] = useState({
+    users: 0,
+    courts: 0,
+    staffs: 0,
+    bookings: 0,
+  });
+
+  useEffect(() => {
+    axios
+      .get("https://swdbbmsapi.azurewebsites.net/api/booking/dashboard-overall")
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching data:", error);
+      });
+  }, []);
+
   return (
     <div className="row">
       <div className="col-sm-6 col-xl-3 col-lg-6">
@@ -15,7 +34,7 @@ const BoxList = () => {
               </span>
               <div className="media-body">
                 <span className="text-white">Khách hàng</span>
-                <h3 className="mb-0 text-white">1000</h3>
+                <h3 className="mb-0 text-white">{data.users}</h3>
               </div>
             </div>
           </div>
@@ -33,7 +52,7 @@ const BoxList = () => {
               </span>
               <div className="media-body">
                 <span className="text-white">Sân</span>
-                <h3 className="mb-0 text-white">300</h3>
+                <h3 className="mb-0 text-white">{data.courts}</h3>
               </div>
             </div>
           </div>
@@ -51,7 +70,7 @@ const BoxList = () => {
               </span>
               <div className="media-body">
                 <span className="text-white">Nhân viên</span>
-                <h3 className="mb-0 text-white">5</h3>
+                <h3 className="mb-0 text-white">{data.staffs}</h3>
               </div>
             </div>
           </div>
@@ -69,7 +88,7 @@ const BoxList = () => {
               </span>
               <div className="media-body">
                 <span className="text-white">Bookings</span>
-                <h3 className="mb-0 text-white">3</h3>
+                <h3 className="mb-0 text-white">{data.bookings}</h3>
               </div>
             </div>
           </div>
